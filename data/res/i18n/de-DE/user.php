@@ -189,6 +189,8 @@ return [
 
     'Your user account has been activated. You can now login with your email address and password. Have fun!'
         => 'Ihr Benutzerkonto wurde erfolgreich aktiviert. Sie können sich nun anmelden. Viel Spass!',
+    'The user account has been manually activated successfully.'
+        => 'Das Benutzerkonto wurde erfolgreich manuell aktiviert. Der Nutzer kann sich nun anmelden.',
 
     'Now you can type a new password for your user account.' => 'Nun können Sie ein neues Passwort für Ihr Benutzerkonto eingeben.',
 
