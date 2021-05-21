@@ -14,6 +14,7 @@ return array(
 
     'Statistic' => 'Statistik',
     'User-Statistic' => 'Benutzer-Statistik',
+    'User activation' => 'Benutzer aktivieren',
     'Booking-Statistic' => 'Buchungs-Statistik',
     'Event-Statistic' => 'Veranstaltungs-Statistik',
 
