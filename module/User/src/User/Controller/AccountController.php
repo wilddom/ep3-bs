@@ -264,6 +264,28 @@ class AccountController extends AbstractActionController
         $userManager->save($user);
     }
 
+    public function manualActivationAction()
+    {
+        $activationUid = $this->params()->fromQuery('id');
+
+        if (! (is_numeric($activationUid) && $activationUid > 0)) {
+            throw new RuntimeException('Invalid user ID.');
+        }
+
+        $userManager = @$this->getServiceLocator()->get('User\Manager\UserManager');
+        $user = $userManager->get($activationUid, false);
+
+        if (! $user) {
+            throw new RuntimeException('No user found.');
+        }
+
+        $user->set('status', $user->getMeta('status_before_reactivation', 'enabled'));
+        $user->set('last_activity', date('Y-m-d H:i:s'));
+        $user->set('last_ip', $_SERVER['REMOTE_ADDR']);
+
+        $userManager->save($user);
+    }
+
     public function activationResendAction()
     {
         if ($this->option('service.user.activation') != 'email') {
