@@ -80,6 +80,16 @@ return array(
                             ),
                         ),
                     ),
+                    'manual-activation' => array(
+                        'type' => 'Literal',
+                        'options' => array(
+                            'route' => '/manual-activation',
+                            'defaults' => array(
+                                'controller' => 'User\Controller\Account',
+                                'action' => 'manualActivation',
+                            ),
+                        ),
+                    ),
                     'activation-resend' => array(
                         'type' => 'Literal',
                         'options' => array(

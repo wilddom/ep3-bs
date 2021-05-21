@@ -1,0 +1,16 @@
+<?php
+
+$this->setup(array(
+    'title' => 'Activation complete',
+    'panel' => 'centered-panel',
+    'back' => true,
+    'links' => array(
+        'Login' => $this->url('user/login'),
+    ),
+));
+
+?>
+
+<div>
+    <?= $this->message('The user account has been manually activated successfully.', 'success') ?>
+</div>
