@@ -36,6 +36,8 @@ return array(
     "welcome to the %s %s!\r\n\r\nThank you for your registration to our service.\r\n\r\nBefore you can completely use your new user account to book spare %s online, you have to activate it by simply clicking the following link. That's all!\r\n\r\n%s"
         => "herzlich Willkommen zum %s %s!\r\n\r\nVielen Dank für Ihre Registrierung für unser Angebot.\r\n\r\nBevor Sie nun freie %s online buchen können, müssen Sie nur noch folgende Internetseite besuchen um Ihr Benutzerkonto zu aktivieren und schon können Sie loslegen!\r\n\r\n%s",
 
+    'Your account %s (e-mail: %s) has been activated by an administrator!' => 'Ihr Benutzer %s (E-Mail: %s) wurde freigeschaltet!',
+
     'Your activation code seems invalid. Please try again.' => 'Ihr Aktivierungs-Code scheint ungültig zu sein. Bitte versuchen Sie es erneut.',
 
     'You cannot manually activate your account currently' => 'Sie können Ihr Benutzerkonto derzeit nicht selbst aktivieren',
