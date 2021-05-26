@@ -266,6 +266,7 @@ class AccountController extends AbstractActionController
 
     public function manualActivationAction()
     {
+        $serviceManager = @$this->getServiceLocator();
         $activationUid = $this->params()->fromQuery('id');
 
         if (! (is_numeric($activationUid) && $activationUid > 0)) {
@@ -284,6 +285,14 @@ class AccountController extends AbstractActionController
         $user->set('last_ip', $_SERVER['REMOTE_ADDR']);
 
         $userManager->save($user);
+
+        $subject = sprintf($this->t('Your registration to the %s %s'),
+        $this->option('client.name.short', false), $this->option('service.name.full', false));
+
+        $text = sprintf($this->t('Your account %s (e-mail: %s) has been activated by an administrator!'), $user->need('alias'), $user->need('email'));
+
+        $userMailService = $serviceManager->get('User\Service\MailService');
+        $userMailService->send($user, $subject, $text);
     }
 
     public function activationResendAction()
