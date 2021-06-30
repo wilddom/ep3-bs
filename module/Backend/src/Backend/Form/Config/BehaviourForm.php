@@ -126,6 +126,19 @@ class BehaviourForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'cf-team-list',
+            'type' => 'textarea',
+            'attributes' => array(
+                'id' => 'cf-team-list',
+                'style' => 'width: 320px; min-height: 60px',
+            ),
+            'options' => array(
+                'label' => 'List of teams',
+                'notes' => 'One team per line',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'cf-submit',
             'type' => 'Submit',
             'attributes' => array(

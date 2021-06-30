@@ -69,6 +69,17 @@ $this->setup(array(
 
         <?php endif; ?>
 
+        <?php if (!empty($this->teamList)): ?>
+          <p>
+            <select name="bf-team">
+              <option value="">Team wählen</option>
+              <?php foreach($this->teamList as $team) { ?>
+                <option value="<?= $team; ?>"><?= $team; ?></option>
+              <?php } ?>
+            </select>
+          </p>
+        <?php endif; ?>
+
         <?php if ($square->get('allow_notes')): ?>
 
             <textarea name="bf-user-notes" placeholder="Optionale Anmerkungen" style="width: 100%; height: 3.1rem"></textarea>

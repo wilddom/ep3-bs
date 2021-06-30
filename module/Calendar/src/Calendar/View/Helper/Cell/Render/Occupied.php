@@ -16,7 +16,12 @@ class Occupied extends AbstractHelper
             return $view->calendarCellRenderOccupiedForPrivileged($reservations, $cellLinkParams);
         } else if ($user) {
             if ($userBooking) {
-                $cellLabel = $view->t('Your Booking');
+                if ($userBooking->getMeta('team')) {
+                    $cellLabel = $userBooking->getMeta('team');
+                }
+                else {
+                    $cellLabel = $view->t('Your Booking');
+                }
                 $cellGroup = ' cc-group-' . $userBooking->need('bid');
 
                 return $view->calendarCellLink($cellLabel, $view->url('square', [], $cellLinkParams), 'cc-own' . $cellGroup);
