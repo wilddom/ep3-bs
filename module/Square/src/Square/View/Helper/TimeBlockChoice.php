@@ -34,15 +34,28 @@ class TimeBlockChoice extends AbstractHelper
 
     protected function renderTimeBlockChoice(DateTime $dateTimeStart, DateTime $dateTimeEnd, Square $square)
     {
+        $block = $square->need('time_block');
         $bookable = $square->need('time_block_bookable');
         $bookableMax = $square->need('time_block_bookable_max');
 
-        $bookableMaxRounded = floor($bookableMax / $bookable) * $bookable;
+        if ($dateTimeStart >= $dateTimeEnd) {
+            $dateTimeEnd = clone $dateTimeStart;
+            $dateTimeEnd->modify('1' . $bookable . ' sec');
+        }
 
-        $dateTimeCheck = clone $dateTimeStart;
+        $dateTimeBlockStart = clone $dateTimeStart;
+        $blockStartParts = explode(':', $dateTimeBlockStart->format('H:i'));
+        $blockStart = $blockStartParts[0] * 3600 + $blockStartParts[1] * 60;
+        $dateTimeBlockStart->modify('-' . ($blockStart % $block) . ' sec');
+        
+        $dateTimeBlockEnd = clone $dateTimeBlockStart;
+        $dateTimeBlockEnd->modify('+' . $block . ' sec');
+        
+        $bookableMaxRounded = floor($bookableMax / $bookable) * $bookable;
+        $dateTimeCheck = clone $dateTimeBlockStart;
         $dateTimeCheck->modify('+' . $bookableMaxRounded . ' sec');
 
-        if ($dateTimeCheck->format('Y-m-d') != $dateTimeStart->format('Y-m-d')) {
+        if ($dateTimeCheck->format('Y-m-d') != $dateTimeBlockStart->format('Y-m-d')) {
             $dateTimeCheck->setTime(0, 0, 0);
         }
 
@@ -66,7 +79,7 @@ class TimeBlockChoice extends AbstractHelper
             $reservationsDateTimeEnd = $dateTimeEnd;
         }
 
-        $reservations = $this->reservationManager->getInRange($dateTimeStart, $reservationsDateTimeEnd);
+        $reservations = $this->reservationManager->getInRange($dateTimeBlockStart, $reservationsDateTimeEnd);
         $bookings = $this->bookingManager->getByReservations($reservations);
 
         $this->reservationManager->getSecondsPerDay($reservations);
@@ -74,22 +87,77 @@ class TimeBlockChoice extends AbstractHelper
         $capacity = $square->need('capacity');
         $capacityHeterogenic = $square->need('capacity_heterogenic');
 
+        if ($square->getMeta('pseudo-time-block-bookable', 'false') == 'true') {
+            $bookable = $square->need('time_block');
+        }
+
         /* Render alternate time select */
 
         $view = $this->getView();
         $html = '';
 
-        $html .= '<select id="sb-alternate-times" style="display: none; margin-right: 16px;">';
+        $html .= '<select id="sb-alternate-times-start" style="display: none; margin-right: 16px;">';
+
+        $walkingDateTimeSliceStart = clone $dateTimeBlockStart;
+        $walkingDateTimeSliceEnd = clone $dateTimeBlockStart;
+        $walkingIndex = 0;
+
+        while ($walkingDateTimeSliceStart < $dateTimeBlockEnd && $walkingDateTimeSliceStart < $dateTimeEnd) {
+            $walkingIndex++;
+            
+            $walkingTimeSliceStartParts = explode(':', $walkingDateTimeSliceStart->format('H:i'));
+            $walkingTimeSliceStart = $walkingTimeSliceStartParts[0] * 3600 + $walkingTimeSliceStartParts[1] * 60;
+            
+            $walkingDateTimeSliceEnd->modify('+' . $bookable . ' sec');
+            $walkingTimeSliceEndParts = explode(':', $walkingDateTimeSliceEnd->format('H:i'));
+            $walkingTimeSliceEnd = $walkingTimeSliceEndParts[0] * 3600 + $walkingTimeSliceEndParts[1] * 60;
+
+            $quantity = 0;
+
+            foreach ($reservations as $reservation) {
+                $booking = $reservation->needExtra('booking');
+
+                if ($booking->need('status') != 'cancelled' && $booking->need('visibility') == 'public') {
+                    if ($booking->need('sid') == $square->need('sid')) {
+                        if ($reservation->needExtra('time_start_sec') < $walkingTimeSliceEnd &&
+                            $reservation->needExtra('time_end_sec') > $walkingTimeSliceStart) {
+                            $quantity += $booking->need('quantity');
+                        }
+                    }
+                }
+            }
+            
+            if ($capacity > $quantity) {
+                if ($quantity && ! $capacityHeterogenic) {
+                    $walkingDateTimeSliceStart->modify('+' . $bookable . ' sec');
+                    continue;
+                }
+            } else {
+                $walkingDateTimeSliceStart->modify('+' . $bookable . ' sec');
+                continue;
+            }
+
+            if ($walkingDateTimeSliceStart == $dateTimeStart) {
+                $attr = 'selected="selected"';
+            } else {
+                $attr = null;
+            }
+            $value = $walkingDateTimeSliceStart->format('H:i');
+
+            $html .= sprintf('<option value="%s" %s>%s</option>',
+                $value, $attr, $view->timeFormat($walkingDateTimeSliceStart));
+            
+            $walkingDateTimeSliceStart->modify('+' . $bookable . ' sec');
+        }
+        $html .= '</select>';
+
+        $html .= '<select id="sb-alternate-times-end" style="display: none; margin-right: 16px;">';
 
         $walkingTimeStartParts = explode(':', $dateTimeStart->format('H:i'));
         $walkingTimeStart = $walkingTimeStartParts[0] * 3600 + $walkingTimeStartParts[1] * 60;
 
         $walkingDateTime = clone $dateTimeStart;
         $walkingIndex = 0;
-
-        if ($square->getMeta('pseudo-time-block-bookable', 'false') == 'true') {
-            $bookable = $square->need('time_block');
-        }
 
         while ($walkingDateTime < $dateTimeCheck) {
             $walkingDateTime->modify('+' . $bookable . ' sec');
@@ -130,7 +198,7 @@ class TimeBlockChoice extends AbstractHelper
             $value = $walkingDateTime->format('H:i');
 
             $html .= sprintf('<option value="%s" %s>%s</option>',
-                $value, $attr, $view->timeRange($dateTimeStart, $walkingDateTime, '%s to %s'));
+                $value, $attr, $view->timeFormat($walkingDateTime));
         }
 
         $html .= '</select>';
