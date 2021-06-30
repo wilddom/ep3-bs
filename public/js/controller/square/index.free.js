@@ -6,17 +6,38 @@
 
         /* Alternate time choice */
 
-        var at = $("#sb-alternate-times");
+        var atStart = $("#sb-alternate-times-start");
 
-        if (at.length) {
+        if (atStart.length) {
             var buttonReload = $("#sb-reload-button");
 
-            at.on("change", function() {
+            atStart.on("change", function() {
                 var hrefBook = buttonBook.attr("href");
                 var hrefReload = buttonReload.attr("href");
 
-                if (at.val()) {
-                    var choice = at.val();
+                if (atStart.val()) {
+                    var choice = atStart.val();
+
+                    buttonBook.attr("href", hrefBook.replace(/\&ts\=[0-9][0-9]:[0-9][0-9]/, "&ts=" + choice));
+                    buttonReload.attr("href", hrefReload.replace(/\&ts\=[0-9][0-9]:[0-9][0-9]/, "&ts=" + choice));
+                    buttonReload.click();
+                }
+            });
+
+            atStart.show();
+        }
+
+        var atEnd = $("#sb-alternate-times-end");
+
+        if (atEnd.length) {
+            var buttonReload = $("#sb-reload-button");
+
+            atEnd.on("change", function() {
+                var hrefBook = buttonBook.attr("href");
+                var hrefReload = buttonReload.attr("href");
+
+                if (atEnd.val()) {
+                    var choice = atEnd.val();
 
                     buttonBook.attr("href", hrefBook.replace(/\&te\=[0-9][0-9]:[0-9][0-9]/, "&te=" + choice));
                     buttonReload.attr("href", hrefReload.replace(/\&te\=[0-9][0-9]:[0-9][0-9]/, "&te=" + choice));
@@ -24,7 +45,7 @@
                 }
             });
 
-            at.show();
+            atEnd.show();
         }
 
         /* Alternate date choice */
