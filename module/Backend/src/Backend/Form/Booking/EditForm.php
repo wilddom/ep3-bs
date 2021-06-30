@@ -5,6 +5,7 @@ namespace Backend\Form\Booking;
 use Booking\Entity\Booking;
 use Booking\Service\BookingStatusService;
 use Square\Manager\SquareManager;
+use Base\Manager\OptionManager;
 use Zend\Form\Form;
 use Zend\InputFilter\Factory;
 
@@ -14,12 +15,13 @@ class EditForm extends Form
     protected $bookingStatusService;
     protected $squareManager;
 
-    public function __construct(BookingStatusService $bookingStatusService, SquareManager $squareManager)
+    public function __construct(BookingStatusService $bookingStatusService, SquareManager $squareManager, OptionManager $optionManager)
     {
         parent::__construct();
 
         $this->bookingStatusService = $bookingStatusService;
         $this->squareManager = $squareManager;
+        $this->optionManager = $optionManager;
     }
 
     public function init()
@@ -43,6 +45,24 @@ class EditForm extends Form
             ),
             'options' => array(
                 'label' => 'Booked to',
+            ),
+        ));
+
+        $teamList = array('' => 'Team wählen');
+        foreach (preg_split('/\r\n|\r|\n/', $this->optionManager->get('service.team-list')) as $team) {
+            $teamList[$team] = $team;
+        }
+        $this->add(array(
+            'name' => 'bf-team',
+            'type' => 'Select',
+            'attributes' => array(
+                'id' => 'bf-team',
+                'style' => 'width: 200px;',
+            ),
+            'options' => array(
+                'label' => 'Team',
+                'notes' => 'Book on this team',
+                'value_options' => $teamList,
             ),
         ));
 
@@ -193,6 +213,12 @@ class EditForm extends Form
                         ),
                         'break_chain_on_failure' => true,
                     ),
+                ),
+            ),
+            'bf-team' => array(
+                'required' => false,
+                'filters' => array(
+                    array('name' => 'StringTrim'),
                 ),
             ),
             'bf-quantity' => array(

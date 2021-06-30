@@ -391,4 +391,6 @@ return [
     'Booked by' => 'Gebucht von',
 
     'User matched by' => 'Benutzer ermittelt nach',
+    'List of teams' => 'Teams',
+    'One team per line' => 'Ein Team pro Zeile'
 ];

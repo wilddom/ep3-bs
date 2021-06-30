@@ -54,6 +54,7 @@ class BookingController extends AbstractActionController
 
         $serviceManager = @$this->getServiceLocator();
         $squareValidator = $serviceManager->get('Square\Service\SquareValidator');
+        $optionManager = $serviceManager->get('Base\Manager\OptionManager');
 
         $byproducts = $squareValidator->isBookable($dateStartParam, $dateEndParam, $timeStartParam, $timeEndParam, $squareParam);
 
@@ -144,6 +145,9 @@ class BookingController extends AbstractActionController
             $playerNames = null;
         }
 
+        $teamList = preg_split('/\r\n|\r|\n/', $optionManager->get('service.team-list'));
+        $byproducts['teamList'] = $teamList;
+
         /* Check booking form submission */
 
         $acceptRulesDocument = $this->params()->fromPost('bf-accept-rules-document');
@@ -181,8 +185,15 @@ class BookingController extends AbstractActionController
                     ));
                 }
 
+                if (!empty($teamList)) {
+                    $team = $this->params()->fromPost('bf-team');
+                }
+                else {
+                    $team = '';
+                }
+
                 if ($square->get('allow_notes')) {
-                    $userNotes = "Anmerkungen des Benutzers:\n" . $this->params()->fromPost('bf-user-notes');
+                    $userNotes = $this->params()->fromPost('bf-user-notes');
                 } else {
                     $userNotes = '';
                 }
@@ -191,6 +202,7 @@ class BookingController extends AbstractActionController
                 $bookingService->createSingle($user, $square, $quantityParam, $byproducts['dateStart'], $byproducts['dateEnd'], $bills, array(
                     'player-names' => serialize($playerNames),
                     'notes' => $userNotes,
+                    'team' => $team,
                 ));
 
                 $this->flashMessenger()->addSuccessMessage(sprintf($this->t('%sCongratulations:%s Your %s has been booked!'),

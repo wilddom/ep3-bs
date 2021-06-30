@@ -21,9 +21,17 @@ class OccupiedForVisitors extends AbstractHelper
             $booking = $reservation->needExtra('booking');
 
             if ($square->getMeta('public_names', 'false') == 'true') {
-                $cellLabel = $booking->needExtra('user')->need('alias');
+                if($booking->getMeta('team')) {
+                    $cellLabel = $booking->getMeta('team');
+                } else {
+                    $cellLabel = $booking->needExtra('user')->need('alias');
+                }
             } else if ($square->getMeta('private_names', 'false') == 'true' && $user) {
-                $cellLabel = $booking->needExtra('user')->need('alias');
+                if($booking->getMeta('team')) {
+                    $cellLabel = $booking->getMeta('team');
+                } else {
+                    $cellLabel = $booking->needExtra('user')->need('alias');
+                }
             } else {
                 $cellLabel = null;
             }

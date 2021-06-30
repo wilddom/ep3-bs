@@ -9,3 +9,24 @@ if ($this->notBookableReason) {
 }
 
 echo sprintf('<p><span class="red">' . $reason . '</span></p>', $squareType);
+
+if ($square->getMeta('public_names', 'false') == 'true') {
+    foreach ($this->bookings as $bid => $booking) {
+        echo '<p>';
+        echo $this->t('Booked to') . ': ' . $booking->needExtra('user')->need('alias') . '<br/>';
+        if ($booking->getMeta('team')) {
+            echo 'Team: ' . $booking->getMeta('team');
+        }
+        echo '</p>';
+    }
+} else if ($square->getMeta('private_names', 'false') == 'true' && $user) {
+    foreach ($this->bookings as $bid => $booking) {
+        echo '<p>';
+        echo $this->t('Booked to') . ': ' . $booking->needExtra('user')->need('alias') . '<br/>';
+        if ($booking->getMeta('team')) {
+            echo 'Team: ' . $booking->getMeta('team');
+        }
+        echo '</p>';
+    }
+} else {
+}

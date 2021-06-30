@@ -5,6 +5,9 @@ $squareType = $this->option('subject.square.type');
 foreach ($this->bookingsFromUser as $bid => $booking) {
     echo sprintf('<p><span class="green">' . $this->t('This %s has been %sbooked to you%s.') . '</span></p>',
         $squareType, '<b>', '</b>');
+    if ($booking->getMeta('team')) {
+        echo '<p>Team: ' . $booking->getMeta('team') . '</p>';
+    }
 
     if ($this->validator->isCancellable($booking)) {
         echo sprintf('<p><a href="%s" class="default-button squarebox-internal-link"><span class="symbolic symbolic-cross">%s</span></a></p>',
