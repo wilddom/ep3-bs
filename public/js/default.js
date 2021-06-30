@@ -1,6 +1,21 @@
 (function() {
 
     $(document).ready(function() {
+        if ($('#header').length > 0 && window.matchMedia("screen and (max-width: 991.98px)").matches) {
+            var headerHeight = $("#header").height();
+            $(window).scroll({
+                previousTop: 0
+            },
+            function () {
+                var currentTop = $(window).scrollTop();
+                if (currentTop > this.previousTop && currentTop > headerHeight) {
+                    $('#header').removeClass('scrolled-up').addClass('scrolled-down');
+                } else {
+                    $('#header').removeClass('scrolled-down').addClass('scrolled-up');
+                }
+                this.previousTop = currentTop;
+            });
+        }
 
         /* Autofocus */
 

@@ -1,5 +1,17 @@
 h2, h3, h4, h5, h6 { color: #547B97; }
 
+#label-client {
+    display: none;
+}
+
+#topbar {
+    display: none;
+}
+
+#footer {
+    display: none;
+}
+
 /* Layout - Calendar */
 
 a.cc-event:link,
