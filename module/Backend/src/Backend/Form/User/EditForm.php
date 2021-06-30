@@ -144,42 +144,6 @@ class EditForm extends Form
         ));
 
         $this->add(array(
-            'name' => 'euf-street',
-            'type' => 'Text',
-            'attributes' => array(
-                'id' => 'euf-street',
-                'style' => 'width: 250px;',
-            ),
-            'options' => array(
-                'label' => 'Street & Number',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'euf-zip',
-            'type' => 'Text',
-            'attributes' => array(
-                'id' => 'euf-zip',
-                'style' => 'width: 116px;',
-            ),
-            'options' => array(
-                'label' => 'Postal code & City',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'euf-city',
-            'type' => 'Text',
-            'attributes' => array(
-                'id' => 'euf-city',
-                'style' => 'width: 116px;',
-            ),
-            'options' => array(
-                'label' => 'City',
-            ),
-        ));
-
-        $this->add(array(
             'name' => 'euf-phone',
             'type' => 'Text',
             'attributes' => array(
@@ -188,18 +152,6 @@ class EditForm extends Form
             ),
             'options' => array(
                 'label' => 'Phone number',
-            ),
-        ));
-
-        $this->add(array(
-            'name' => 'euf-birthdate',
-            'type' => 'Text',
-            'attributes' => array(
-                'id' => 'euf-birthdate',
-                'style' => 'width: 116px;',
-            ),
-            'options' => array(
-                'label' => 'Birthday',
             ),
         ));
 
@@ -381,53 +333,6 @@ class EditForm extends Form
                     ),
                 ),
             ),
-            'euf-street' => array(
-                'required' => false,
-                'filters' => array(
-                    array('name' => 'StringTrim'),
-                    array('name' => 'Callback', 'options' => array('callback' => function($name) { return ucfirst($name); })),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'min' => 3,
-                            'message' => 'Street should be at least %min% characters long',
-                        ),
-                    ),
-                ),
-            ),
-            'euf-zip' => array(
-                'required' => false,
-                'filters' => array(
-                    array('name' => 'StringTrim'),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'min' => 3,
-                            'message' => 'Postal code should be at least %min% characters long',
-                        ),
-                    ),
-                ),
-            ),
-            'euf-city' => array(
-                'required' => false,
-                'filters' => array(
-                    array('name' => 'StringTrim'),
-                    array('name' => 'Callback', 'options' => array('callback' => function($name) { return ucfirst($name); })),
-                ),
-                'validators' => array(
-                    array(
-                        'name' => 'StringLength',
-                        'options' => array(
-                            'min' => 3,
-                            'message' => 'Postal code should be at least %min% characters long',
-                        ),
-                    ),
-                ),
-            ),
             'euf-phone' => array(
                 'required' => false,
                 'filters' => array(
@@ -441,12 +346,6 @@ class EditForm extends Form
                             'message' => 'Phone number code should be at least %min% characters long',
                         ),
                     ),
-                ),
-            ),
-            'euf-birthdate' => array(
-                'required' => false,
-                'filters' => array(
-                    array('name' => 'StringTrim'),
                 ),
             ),
             'euf-notes' => array(
