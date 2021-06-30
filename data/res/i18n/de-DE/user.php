@@ -144,7 +144,7 @@ return [
     'Salutation' => 'Anrede',
     'First & Last name' => 'Vor- & Nachname',
     'Last name' => 'Nachname',
-    'Street & Number' => 'Straße und Hausnummer',
+    'Street & Number' => 'Strasse und Hausnummer',
     'Street number' => 'Hausnummer',
     'Postal code & City' => 'Postleitzahl & Ort',
     'City' => 'Wohnort',
@@ -152,16 +152,16 @@ return [
     'Birthday' => 'Geburtstag',
     'This is optional' => 'Diese Angabe ist freiwillig',
 
-    'Complete registration' => 'Registrierung abschließen',
+    'Complete registration' => 'Registrierung abschliessen',
 
     'Please type your name here' => 'Bitte geben Sie Ihren Namen ein',
     'Your name is somewhat short ...' => 'Dieser Name ist etwas kurz',
     'Your name contains invalid characters - sorry' => 'Dieser Name enthält ungültige Zeichen',
     'Your last name is somewhat short ...' => 'Dieser Nachname ist etwas kurz',
     'Your last name contains invalid characters - sorry' => 'Dieser Nachname enthält ungültige Zeichen',
-    'Please type your street name here' => 'Bitte geben Sie Ihre Straße ein',
-    'This street name is somewhat short ...' => 'Dieser Straßenname ist etwas kurz',
-    'This street name contains invalid characters - sorry' => 'Dieser Straßenname enthält ungültige Zeichen',
+    'Please type your street name here' => 'Bitte geben Sie Ihre Strasse ein',
+    'This street name is somewhat short ...' => 'Dieser Strassenname ist etwas kurz',
+    'This street name contains invalid characters - sorry' => 'Dieser Strassenname enthält ungültige Zeichen',
     'Please type your street number here' => 'Bitte geben Sie Ihre Hausnummer ein',
     'This street number contains invalid characters - sorry' => 'Diese Hausnummer enthält ungültige Zeichen',
     'Please type your postal code here' => 'Bitte geben Sie Ihre Postleitzahl ein',
@@ -171,7 +171,7 @@ return [
     'This city name contains invalid characters - sorry' => 'Dieser Wohnort enthält ungültige Zeichen',
 
     'Please leave this field empty' => 'Bitte lassen Sie dieses Feld leer',
-    'Please register about our website only' => 'Bitte benutzen Sie ausschließlich unser Registrierungs-Formular',
+    'Please register about our website only' => 'Bitte benutzen Sie ausschliesslich unser Registrierungs-Formular',
     'You were too quick for our system! Please wait some seconds and try again. Thank you!' => 'Sie waren zu schnell für unser System. Bitte warten Sie ein paar Sekunden und versuchen Sie es erneut.',
 
     'User name too short' => 'Benutzername zu kurz',
@@ -188,7 +188,7 @@ return [
     'Therefore, please type the email adress you used for registration.' => 'Geben Sie dazu bitte Ihre E-Mail Adresse ein.',
 
     'Your user account has been activated. You can now login with your email address and password. Have fun!'
-        => 'Ihr Benutzerkonto wurde erfolgreich aktiviert. Sie können sich nun anmelden. Viel Spaß!',
+        => 'Ihr Benutzerkonto wurde erfolgreich aktiviert. Sie können sich nun anmelden. Viel Spass!',
 
     'Now you can type a new password for your user account.' => 'Nun können Sie ein neues Passwort für Ihr Benutzerkonto eingeben.',
 
@@ -199,7 +199,7 @@ return [
     'The registration is complete and your user account has been created successfully'
         => 'Die Registrierung ist nun abgeschlossen und Ihr Benutzerkonto wurde erfolgreich erstellt',
     'You can now login with your email address and password. Have fun!'
-        => 'Sie können sich nun mit Ihrer E-Mail Adresse und Ihrem Passwort anmelden. Viel Spaß!',
+        => 'Sie können sich nun mit Ihrer E-Mail Adresse und Ihrem Passwort anmelden. Viel Spass!',
     'However, your user account is %snot yet activated%s.'
         => 'Allerdings ist Ihr Benutzerkonto %snoch nicht freigeschaltet%s.',
     'This will happen during a quick manual verification of your user account data.'
@@ -256,7 +256,7 @@ return [
     'Hello' => 'Hallo',
     'This was an automated message from the system.' => 'Diese Nachricht wurde automatisch gesendet.',
 	'Originally sent to %s (%s).' => 'Ursprünglich gesendet an %s (%s).',
-    'Sincerely' => 'Viele Grüße',
+    'Sincerely' => 'Viele Grüsse',
     'Your' => 'Ihr',
 
 ];

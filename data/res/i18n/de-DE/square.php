@@ -60,7 +60,7 @@ return [
 	'Your booking will be binding.' => 'Ihre Buchung ist verbindlich.',
     'Your booking will be binding, however, you can cancel it up to %s before it takes place.'
         => 'Ihre Buchung ist verbindlich. Sie können sie jedoch bis zu %s vorher stornieren.',
-    'Complete booking' => 'Buchung abschließen',
+    'Complete booking' => 'Buchung abschliessen',
 
     'Type' => 'Spielart',
     '- none -' => '- keine -',
