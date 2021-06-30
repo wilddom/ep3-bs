@@ -140,7 +140,7 @@ return array(
     'Help page has been saved' => 'Hilfeseite wurde gespeichert',
     'Help page text is too short' => 'Der Text der Hilfeseite ist zu kurz',
     'Which text should appear on the help page?' => 'Welcher Text soll auf der Hilfeseite erscheinen?',
-    'Which %s do you have? What are their names?' => 'Welche %s haben Sie? Wie sollen diese heißen?',
+    'Which %s do you have? What are their names?' => 'Welche %s haben Sie? Wie sollen diese heissen?',
     'Pricing' => 'Preise',
     'Pricing rules' => 'Preisregeln',
     'Pricing rules have been saved' => 'Preisregeln wurden gespeichert',
@@ -190,8 +190,8 @@ return array(
     'Billing status options' => 'Rechnungsstatus-Bezeichnungen',
     'Number of players' => 'Anzahl Spieler',
     'Booked to' => 'Gebucht auf',
-    'Edit user once saved' => 'Benutzer anschließend bearbeiten',
-    'Edit booking bills once saved' => 'Rechnung anschließend bearbeiten',
+    'Edit user once saved' => 'Benutzer anschliessend bearbeiten',
+    'Edit booking bills once saved' => 'Rechnung anschliessend bearbeiten',
 
     'Date (Start)' => 'Datum (Start)',
     'Date (End)' => 'Datum (Ende)',
@@ -209,7 +209,7 @@ return array(
     'Invalid date' => 'Ungültiges Datum',
 
     'Essentially disables the system for the public,<br>but allows administrators to still login'
-        => 'Hiermit kann das System in den Wartungsmodus versetzt werden.<br>Im Wartungsmodus ist der Kalender nicht mehr sichtbar und<br>außer Ihnen kann sich niemand anmelden',
+        => 'Hiermit kann das System in den Wartungsmodus versetzt werden.<br>Im Wartungsmodus ist der Kalender nicht mehr sichtbar und<br>ausser Ihnen kann sich niemand anmelden',
 
     'Message' => 'Mitteilung',
 
