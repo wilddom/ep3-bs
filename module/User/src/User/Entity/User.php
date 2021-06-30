@@ -53,8 +53,6 @@ class User extends AbstractEntity
     public static $genderOptions = array(
         'male' => 'Mr.',
         'female' => 'Mrs',
-        'family' => 'Family',
-        'firm' => 'Firm',
     );
 
     /**
