@@ -11,17 +11,24 @@ if ($this->notBookableReason) {
 
 echo sprintf('<p><span class="red">' . $reason . '</span></p>', $squareType);
 
-if (count($this->bookings) == 1) {
-    $booking = current($this->bookings);
-    $customName = $booking->getMeta('custom-name');
-
-    $namesVisible = $square->getMeta('public_names', 'false') == 'true'
-        || ($square->getMeta('private_names', 'false') == 'true' && $this->user);
-
-    if ($customName && $namesVisible) {
+if ($square->getMeta('public_names', 'false') == 'true'
+        || ($square->getMeta('private_names', 'false') == 'true' && $this->user)) {
+            foreach ($this->bookings as $bid => $booking) {
         $bookingTypeColor = $this->bookingTypeService->getTypeColor($booking->getMeta('type'));
         $style = $bookingTypeColor ? ' style="color: ' . $bookingTypeColor . ';"' : '';
-
-        echo '<p' . $style . '>' . $this->escapeHtml($customName) . '</p>';
+        echo '<p' . $style . '>';
+        echo $this->t('Booked to') . ': ' . $booking->needExtra('user')->need('alias') . '<br/>';
+        if ($booking->getMeta('team') && $booking->getMeta('custom-name')) {
+            echo $this->t('Team') . ': ' . $booking->getMeta('team');
+            echo '<br/>';
+            echo $this->t('Title') . ': ' . $this->escapeHtml($booking->getMeta('custom-name'));
+        }
+        else if ($booking->getMeta('team')) {
+            echo $this->t('Team') . ': ' . $booking->getMeta('team');
+        }
+        else if ($booking->getMeta('custom-name')) {
+            echo $this->t('Title') . ': ' . $this->escapeHtml($booking->getMeta('custom-name'));
+        }
+        echo '</p>';
     }
 }

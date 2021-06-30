@@ -24,7 +24,13 @@ class Occupied extends AbstractHelper
             return $view->calendarCellRenderOccupiedForPrivileged($reservations, $cellLinkParams);
         } else if ($user) {
             if ($userBooking) {
-                $cellLabel = $userBooking->getMeta('custom-name') ?: $view->t('Your Booking');
+                if ($userBooking->getMeta('team') && $userBooking->getMeta('custom-name')) {
+                    $cellLabel = $userBooking->getMeta('team')." (".$userBooking->getMeta('custom-name').")";
+                } else if ($userBooking->getMeta('team')) {
+                    $cellLabel = $userBooking->getMeta('team');
+                } else {
+                    $cellLabel = $userBooking->getMeta('custom-name') ?: $view->t('Your Booking');
+                }
                 $cellGroup = ' cc-group-' . $userBooking->need('bid');
 
                 $bookingTypeColor = $this->bookingTypeService->getTypeColor($userBooking->getMeta('type'));

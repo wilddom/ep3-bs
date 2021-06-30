@@ -118,5 +118,7 @@ return [
     'Player\'s name' => 'Spieler Vor-/Nachname',
     'and email address' => 'und E-Mail Adresse',
     'and phone number' => 'und Telefonnummer',
-
+    
+    'Team' => 'Team',
+    'Title' => 'Bezeichnung',
 ];

@@ -29,9 +29,21 @@ class OccupiedForVisitors extends AbstractHelper
             $booking = $reservation->needExtra('booking');
 
             if ($square->getMeta('public_names', 'false') == 'true') {
-                $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
+                if ($booking->getMeta('team') && $booking->getMeta('custom-name')) {
+                    $cellLabel = $booking->getMeta('team')." (".$booking->getMeta('custom-name').")";
+                } else if ($booking->getMeta('team')) {
+                    $cellLabel = $booking->getMeta('team');
+                } else {
+                    $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
+                }
             } else if ($square->getMeta('private_names', 'false') == 'true' && $user) {
-                $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
+                if ($booking->getMeta('team') && $booking->getMeta('custom-name')) {
+                    $cellLabel = $booking->getMeta('team')." (".$booking->getMeta('custom-name').")";
+                } else if($booking->getMeta('team')) {
+                    $cellLabel = $booking->getMeta('team');
+                } else {
+                    $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
+                }
             } else {
                 $cellLabel = null;
             }

@@ -44,7 +44,13 @@ class OccupiedForPrivileged extends AbstractHelper
 
             $cellStyle = $cellStyle ?: null;
 
-            $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
+            if ($booking->getMeta('team') && $booking->getMeta('custom-name')) {
+                $cellLabel = $booking->getMeta('team')." (".$booking->getMeta('custom-name').")";
+            } else if ($booking->getMeta('team')) {
+                $cellLabel = $booking->getMeta('team');
+            } else {
+                $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
+            }
             $cellGroup = ' cc-group-' . $booking->need('bid');
 
             switch ($booking->need('status')) {

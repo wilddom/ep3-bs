@@ -130,6 +130,7 @@ class ConfigController extends AbstractActionController
                 $userDefaultMaxActiveBookings = $data['cf-user-default-max-active-bookings'];
                 $calendarDays = $data['cf-calendar-days'];
                 $calendarDayExceptions = $data['cf-calendar-day-exceptions'];
+                $teamList = $data['cf-team-list'];
 
                 $locale = $this->config('i18n.locale');
 
@@ -141,6 +142,7 @@ class ConfigController extends AbstractActionController
                 $optionManager->set('service.user.default.max_active_bookings', $userDefaultMaxActiveBookings);
                 $optionManager->set('service.calendar.days', $calendarDays);
                 $optionManager->set('service.calendar.day-exceptions', $calendarDayExceptions);
+                $optionManager->set('service.team-list', $teamList);
 
                 $this->flashMessenger()->addSuccessMessage('Configuration has been saved');
             } else {
@@ -157,6 +159,7 @@ class ConfigController extends AbstractActionController
             $behaviourForm->get('cf-user-default-max-active-bookings')->setValue($optionManager->get('service.user.default.max_active_bookings', '0'));
             $behaviourForm->get('cf-calendar-days')->setValue($optionManager->get('service.calendar.days', '4'));
             $behaviourForm->get('cf-calendar-day-exceptions')->setValue($optionManager->get('service.calendar.day-exceptions'));
+            $behaviourForm->get('cf-team-list')->setValue($optionManager->get('service.team-list'));
         }
 
         return array(

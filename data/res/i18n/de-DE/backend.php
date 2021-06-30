@@ -399,4 +399,6 @@ return [
     'User matched by' => 'Benutzer ermittelt nach',
 
     'Limit bookings' => 'Buchungen einschränken',
+    'List of teams' => 'Teams',
+    'One team per line' => 'Ein Team pro Zeile',
 ];
