@@ -64,6 +64,7 @@ return array(
 
         'factories' => array(
             'CalendarCellRenderOccupiedForPrivileged' => 'Calendar\View\Helper\Cell\Render\OccupiedForPrivilegedFactory',
+            'CalendarCellWeather' => 'Calendar\View\Helper\Cell\WeatherCellFactory',
         ),
     ),
 
