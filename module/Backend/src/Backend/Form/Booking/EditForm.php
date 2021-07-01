@@ -48,7 +48,7 @@ class EditForm extends Form
             ),
         ));
 
-        $teamList = array('' => 'Team wählen');
+        $teamList = array('' => $this->optionManager->getTranslator()->translate('Team wählen'));
         foreach (preg_split('/\r\n|\r|\n/', $this->optionManager->get('service.team-list')) as $team) {
             $teamList[$team] = $team;
         }
