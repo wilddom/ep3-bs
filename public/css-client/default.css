@@ -12,6 +12,14 @@ h2, h3, h4, h5, h6 { color: #547B97; }
     display: none;
 }
 
+.weather-day {
+    height: 50px;
+}
+
+.weather-day img {
+    vertical-align: middle;
+}
+
 /* Layout - Calendar */
 
 a.cc-event:link,
