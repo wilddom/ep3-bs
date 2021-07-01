@@ -100,7 +100,7 @@ $this->setup(array(
         <?php if (!empty($this->teamList)): ?>
           <p>
             <select name="bf-team">
-              <option value="">Team wählen</option>
+              <option value=""><?= $this->t('Team wählen'); ?></option>
               <?php foreach($this->teamList as $team) { ?>
                 <option value="<?= $team; ?>"><?= $team; ?></option>
               <?php } ?>
