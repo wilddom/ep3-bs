@@ -5,14 +5,31 @@ namespace Weather\Service;
 use DateTime;
 
 class WeatherCollection {
+    public $current;
     public $daily;
     public $hourly;
 
     public function __construct() {
+        $this->current = null;
         $this->daily = array();
         $this->hourly = array();
     }
     
+    public function setCurrent(WeatherData $weather) {
+        $this->current = $weather;
+    }
+
+    public function hasCurrent(DateTime $dt) {
+        return !is_null($this->current) && $this->current->$dt->format('Y-m-d') == $dt->format('Y-m-d');
+    }
+
+    public function getCurrent(DateTime $dt) {
+        if ($this->hasCurrent($dt)) {
+            return $this->current;
+        }
+        return null;
+    }
+
     public function setDaily(WeatherData $weather) {
         $this->daily[$weather->dt->format('Y-m-d')] = $weather;
     }
