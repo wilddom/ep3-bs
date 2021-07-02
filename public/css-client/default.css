@@ -27,7 +27,6 @@ h2, h3, h4, h5, h6 { color: #547B97; }
 .weather-tooltip table {
     width: 100%;
     margin-top: 16px;
-    margin-bottom: 16px;
 }
 
 .weather-tooltip table td:nth-child(n+2) {

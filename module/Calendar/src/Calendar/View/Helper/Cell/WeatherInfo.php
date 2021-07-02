@@ -66,9 +66,6 @@ class WeatherInfo extends AbstractHelper
             $tooltip .= '<tr><td>Sonnenuntergang</td><td>'.$weather->sun->set->format('H:i').'</td></tr>';
             $tooltip .= '</table>';
         }
-        $tooltip .= '<p>';
-        $tooltip .= 'Aktualisierung: '.$weather->dt->format('d.m.Y H:i');
-        $tooltip .= '</p>';
         $tooltip .= '</div>';
 
         $now = new \DateTime('now');
