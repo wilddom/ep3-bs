@@ -58,15 +58,12 @@ return array(
             'CalendarEventsCleanup' => 'Calendar\View\Helper\EventsCleanup',
             'CalendarEventsForCell' => 'Calendar\View\Helper\EventsForCell',
             'CalendarEventsForCol' => 'Calendar\View\Helper\EventsForCol',
-
-            'CalendarWeatherInfo' => 'Calendar\View\Helper\Cell\WeatherInfo',
         ),
 
         'factories' => array(
             'CalendarCellRenderOccupied' => 'Calendar\View\Helper\Cell\Render\OccupiedFactory',
             'CalendarCellRenderOccupiedForPrivileged' => 'Calendar\View\Helper\Cell\Render\OccupiedForPrivilegedFactory',
             'CalendarCellRenderOccupiedForVisitors' => 'Calendar\View\Helper\Cell\Render\OccupiedForVisitorsFactory',
-            'CalendarCellWeather' => 'Calendar\View\Helper\Cell\WeatherCellFactory',
         ),
     ),
 

@@ -1,6 +1,6 @@
 <?php
 
-namespace Calendar\View\Helper\Cell;
+namespace Weather\View\Helper;
 
 use DateTime;
 use IntlDateFormatter;
@@ -33,10 +33,10 @@ class WeatherCell extends AbstractHelper
             return '';
         }
 
-        $content = $view->calendarWeatherInfo($weather, 'Vorhersage');
+        $content = $view->weatherInfo($weather, 'Vorhersage');
         if ($type == 'day' && $weatherCol->hasCurrent($date)) {
             $current = $weatherCol->getCurrent($date);
-            $content .= $view->calendarWeatherInfo($current, 'Aktuell');
+            $content .= $view->weatherInfo($current, 'Aktuell');
         }
         
         return sprintf('<div class="weather-%s">%s</div>',

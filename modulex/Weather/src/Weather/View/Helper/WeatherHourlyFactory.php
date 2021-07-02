@@ -1,16 +1,16 @@
 <?php
 
-namespace Calendar\View\Helper\Cell;
+namespace Weather\View\Helper;
 
 use Zend\ServiceManager\FactoryInterface;
 use Zend\ServiceManager\ServiceLocatorInterface;
 
-class WeatherCellFactory implements FactoryInterface
+class WeatherHourlyFactory implements FactoryInterface
 {
 
     public function createService(ServiceLocatorInterface $sm)
     {
-        return new WeatherCell($sm->getServiceLocator()->get('Weather\Service\WeatherService'));
+        return new WeatherHourly($sm->getServiceLocator()->get('Weather\Service\WeatherService'));
     }
 
 }

@@ -23,6 +23,7 @@ class WeatherData
     public $pop;
     public $sun;
     public $weather;
+    public $visibility;
 
     public function __construct($data, $units)
     {
@@ -48,12 +49,13 @@ class WeatherData
             new Unit(isset($data->wind_deg) ? $data->wind_deg : null, '°')
         );
         $this->clouds = new Unit(isset($data->clouds) ? $data->clouds : null, '%');
+        $this->visibility = new Unit(isset($data->visibility) ? ((float)$data->visibility/1000) : null, 'km');
 
         // the rain field is not always present in the JSON response
         // and sometimes it contains the field '1h', sometimes the field '3h'
         $rain = isset($data->rain) ? (array) $data->rain : array();
         $rainUnit = !empty($rain) ? key($rain) : '';
-        $rainValue = !empty($rain) ? current($rain) : null;
+        $rainValue = !empty($rain) ? current($rain) : 0.0;
         $this->precipitation = new Unit($rainValue, empty($rainUnit) ? 'mm' : 'mm/'.$rainUnit);
         $this->pop = new Unit(isset($data->pop) ? $data->pop*100 : null, '%');
         $this->uvi = new Unit(isset($data->uvi) ? $data->uvi : null);
