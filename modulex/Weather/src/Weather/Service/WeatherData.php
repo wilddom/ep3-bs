@@ -149,6 +149,6 @@ class WeatherData
             $sunset->setTimeZone($tz);
             $this->sun = new Sun($sunrise, $sunset);
         }
-        $this->weather = new Weather($data->weather[0]->id, $data->weather[0]->description, $data->weather[0]->icon);
+        $this->weather = new Weather($data->weather[0]->id, str_replace('ß', 'ss', $data->weather[0]->description), $data->weather[0]->icon);
     }
 }

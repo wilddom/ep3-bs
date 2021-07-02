@@ -46,6 +46,11 @@ class WeatherService extends AbstractService
         }
         $units = $this->configManager->get('weather.units', 'metric');
 
+        if (property_exists($weatherJson, 'current')) {
+            $weatherJson->current->main = $weatherJson;
+            $w = new WeatherData($weatherJson->current, $units);
+            $weather->setCurrent($w);
+        }
         if (property_exists($weatherJson, 'daily')) {
             foreach($weatherJson->daily as $day) {
                 $day->main = $weatherJson;
@@ -53,11 +58,6 @@ class WeatherService extends AbstractService
                 $weather->setDaily($w);
             }
         }
-        // if (property_exists($weatherJson, 'current')) {
-        //     $weatherJson->current->main = $weatherJson;
-        //     $w = new WeatherData($weatherJson->current, $units);
-        //     $weather->setDaily($w);
-        // }
         if (property_exists($weatherJson, 'hourly')) {
             foreach($weatherJson->hourly as $hour) {
                 $hour->main = $weatherJson;
@@ -92,7 +92,7 @@ class WeatherService extends AbstractService
                 'lon' => $this->configManager->get('weather.lon'),
                 'exclude' => 'minutely',
                 'units' => $this->configManager->get('weather.units', 'metric'),
-                'lang' => $this->configManager->get('weather.lang', 'en'),
+                'lang' => explode('-', $this->configManager->get('i18n.locale', $this->configManager->get('weather.lang', 'en')))[0],
                 'appid' => $this->configManager->get('weather.appid'),
             )
         );
