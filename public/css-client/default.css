@@ -20,6 +20,18 @@ h2, h3, h4, h5, h6 { color: #547B97; }
     vertical-align: middle;
 }
 
+table.weather-info {
+    width: 100%;
+}
+
+table.weather-info {
+    width: 100%;
+}
+
+table.weather-info td:nth-child(n+2) {
+    text-align: center;
+}
+
 /* Layout - Calendar */
 
 a.cc-event:link,
