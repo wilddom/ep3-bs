@@ -60,6 +60,8 @@ return array(
             'CalendarEventsCleanup' => 'Calendar\View\Helper\EventsCleanup',
             'CalendarEventsForCell' => 'Calendar\View\Helper\EventsForCell',
             'CalendarEventsForCol' => 'Calendar\View\Helper\EventsForCol',
+
+            'CalendarWeatherInfo' => 'Calendar\View\Helper\Cell\WeatherInfo',
         ),
 
         'factories' => array(

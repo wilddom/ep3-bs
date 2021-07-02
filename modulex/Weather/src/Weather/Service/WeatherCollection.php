@@ -20,7 +20,7 @@ class WeatherCollection {
     }
 
     public function hasCurrent(DateTime $dt) {
-        return !is_null($this->current) && $this->current->$dt->format('Y-m-d') == $dt->format('Y-m-d');
+        return !is_null($this->current) && $this->current->dt->format('Y-m-d') == $dt->format('Y-m-d');
     }
 
     public function getCurrent(DateTime $dt) {

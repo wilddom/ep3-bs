@@ -38,109 +38,25 @@ class WeatherData
         $this->dt->setTimeZone($tz);
 
         $this->location = new Location($data->main->lat, $data->main->lon);
-        if ($data->temp instanceof \stdClass) {
-            if (!isset($data->temp->max)) {
-                $max = null;
-                foreach ($data->temp as $key => $val) {
-                    if (is_null($max)) {
-                        $max = $val;
-                    }
-                    else {
-                        $max = max($max, $val);
-                    }
-                }
-                if (!is_null($max)) {
-                    $data->temp->max = $max;
-                }
-            }
-            if (!isset($data->temp->min)) {
-                $min = null;
-                foreach ($data->temp as $key => $val) {
-                    if (is_null($min)) {
-                        $min = $val;
-                    }
-                    else {
-                        $min = min($min, $val);
-                    }
-                }
-                if (!is_null($min)) {
-                    $data->temp->min = $min;
-                }
-            }
-            $value = round((floatval($data->temp->max) + floatval($data->temp->min)) / 2, 2);
-            $this->temperature = new Temperature(
-                new Unit($value, $units),
-                new Unit($data->temp->min, $units),
-                new Unit($data->temp->max, $units),
-                new Unit($data->temp->day, $units),
-                new Unit($data->temp->morn, $units),
-                new Unit($data->temp->eve, $units),
-                new Unit($data->temp->night, $units)
-            );
-        }
-        else {
-            $this->temperature = new Temperature(new Unit($data->temp, $units));
-        }
-        if ($data->feels_like instanceof \stdClass) {
-            if (!isset($data->feels_like->max)) {
-                $max = null;
-                foreach ($data->feels_like as $key => $val) {
-                    if (is_null($max)) {
-                        $max = $val;
-                    }
-                    else {
-                        $max = max($max, $val);
-                    }
-                }
-                if (!is_null($max)) {
-                    $data->feels_like->max = $max;
-                }
-            }
-            if (!isset($data->feels_like->min)) {
-                $min = null;
-                foreach ($data->feels_like as $key => $val) {
-                    if (is_null($min)) {
-                        $min = $val;
-                    }
-                    else {
-                        $min = min($min, $val);
-                    }
-                }
-                if (!is_null($min)) {
-                    $data->feels_like->min = $min;
-                }
-            }
-            $value = round((floatval($data->feels_like->max) + floatval($data->feels_like->min)) / 2, 2);
-            $this->feels_like = new Temperature(
-                new Unit($value, $units),
-                new Unit($data->feels_like->min, $units),
-                new Unit($data->feels_like->max, $units),
-                new Unit($data->feels_like->day, $units),
-                new Unit($data->feels_like->morn, $units),
-                new Unit($data->feels_like->eve, $units),
-                new Unit($data->feels_like->night, $units)
-            );
-        }
-        else {
-            $this->feels_like = new Temperature(new Unit($data->feels_like, $units));
-        }
-        $this->dew_point = new Unit($data->dew_point, $units);
-        $this->humidity = new Unit($data->humidity, '%');
-        $this->pressure = new Unit($data->pressure, 'hPa');
+        $this->temperature = $this->prepareTemperature($data->temp, $units);
+        $this->feels_like = $this->prepareTemperature($data->feels_like, $units);
+        $this->dew_point = new Unit(isset($data->dew_point) ? $data->dew_point : null, $units);
+        $this->humidity = new Unit(isset($data->humidity) ? $data->humidity : null, '%');
+        $this->pressure = new Unit(isset($data->pressure) ? $data->pressure : null, 'hPa');
         $this->wind = new Wind(
-            new Unit($data->wind_speed, $windSpeedUnit),
-            new Unit($data->wind_deg, '°')
+            new Unit(isset($data->wind_speed) ? $data->wind_speed : null, $windSpeedUnit),
+            new Unit(isset($data->wind_deg) ? $data->wind_deg : null, '°')
         );
-        $this->clouds = new Unit($data->clouds, '%');
+        $this->clouds = new Unit(isset($data->clouds) ? $data->clouds : null, '%');
 
         // the rain field is not always present in the JSON response
         // and sometimes it contains the field '1h', sometimes the field '3h'
         $rain = isset($data->rain) ? (array) $data->rain : array();
         $rainUnit = !empty($rain) ? key($rain) : '';
-        $rainValue = !empty($rain) ? current($rain) : 0.0;
+        $rainValue = !empty($rain) ? current($rain) : null;
         $this->precipitation = new Unit($rainValue, empty($rainUnit) ? 'mm' : 'mm/'.$rainUnit);
         $this->pop = new Unit(isset($data->pop) ? $data->pop*100 : null, '%');
-        $this->uvi = $data->uvi;
+        $this->uvi = new Unit(isset($data->uvi) ? $data->uvi : null);
 
         if (isset($data->sunrise) && isset($data->sunset)) {
             $sunrise = \DateTime::createFromFormat('U', $data->sunrise);
@@ -149,6 +65,53 @@ class WeatherData
             $sunset->setTimeZone($tz);
             $this->sun = new Sun($sunrise, $sunset);
         }
+        else {
+            $this->sun = new Sun();
+        }
         $this->weather = new Weather($data->weather[0]->id, str_replace('ß', 'ss', $data->weather[0]->description), $data->weather[0]->icon);
+    }
+
+    private function prepareTemperature($data, $units) {
+        if (!($data instanceof \stdClass)) {
+            return new Temperature(new Unit($data, $units));
+        }
+        if (!isset($data->max)) {
+            $max = null;
+            foreach ($data as $key => $val) {
+                if (is_null($max)) {
+                    $max = $val;
+                }
+                else {
+                    $max = max($max, $val);
+                }
+            }
+            if (!is_null($max)) {
+                $data->max = $max;
+            }
+        }
+        if (!isset($data->min)) {
+            $min = null;
+            foreach ($data as $key => $val) {
+                if (is_null($min)) {
+                    $min = $val;
+                }
+                else {
+                    $min = min($min, $val);
+                }
+            }
+            if (!is_null($min)) {
+                $data->min = $min;
+            }
+        }
+        $value = round((floatval($data->max) + floatval($data->min)) / 2, 2);
+        return new Temperature(
+            new Unit($value, $units),
+            new Unit($data->min, $units),
+            new Unit($data->max, $units),
+            new Unit($data->day, $units),
+            new Unit($data->morn, $units),
+            new Unit($data->eve, $units),
+            new Unit($data->night, $units)
+        );
     }
 }

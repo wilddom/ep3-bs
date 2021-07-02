@@ -11,8 +11,12 @@ class Unit implements JsonSerializable
 
     public function __construct($value = 0.0, $unit = "")
     {
-        $this->value = (float)$value;
+        $this->value = is_null($value) ? $value : (float)$value;
         $this->unit = (string)$unit;
+    }
+
+    public function isValid() {
+        return !is_null($this->value);
     }
 
     public function __toString()
@@ -40,6 +44,9 @@ class Unit implements JsonSerializable
 
     public function getFormatted($precision = null)
     {
+        if(!$this->isValid()) {
+            return '';
+        }
         $value = $this->getValue();
         if (!is_null($precision)) {
             $value = round($value, $precision);
