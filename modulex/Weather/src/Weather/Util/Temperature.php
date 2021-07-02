@@ -17,6 +17,19 @@ class Temperature
         return $this->now->__toString();
     }
 
+    public function isComplete() {
+        foreach ($this as $key => $value) {
+            if (!$value->isValid()) {
+                return false;
+            }
+        }
+        return true;
+    }
+
+    public function isValid() {
+        return $this->now->isValid();
+    }
+
     public function getUnit()
     {
         return $this->now->getUnit();
@@ -39,12 +52,12 @@ class Temperature
 
     public function __construct(Unit $now, Unit $min = null, Unit $max = null, Unit $day = null, Unit $morning = null, Unit $evening = null, Unit $night = null)
     {
-        $this->now = $now;
-        $this->min = $min;
-        $this->max = $max;
-        $this->day = $day;
-        $this->morning = $morning;
-        $this->evening = $evening;
-        $this->night = $night;
+        $this->now = is_null($now) ? new Unit($now) : $now;
+        $this->min = is_null($min) ? new Unit($min) : $min;
+        $this->max = is_null($max) ? new Unit($max) : $max;
+        $this->day = is_null($day) ? new Unit($day) : $day;
+        $this->morning = is_null($morning) ? new Unit($morning) : $morning;
+        $this->evening = is_null($evening) ? new Unit($evening) : $evening;
+        $this->night = is_null($night) ? new Unit($night) : $night;
     }
 }
