@@ -14,18 +14,23 @@ h2, h3, h4, h5, h6 { color: #547B97; }
 
 .weather-day {
     height: 50px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: center;
 }
 
-.weather-day img {
+.weather-info img {
     vertical-align: middle;
 }
 
-table.weather-info {
+.weather-tooltip table {
     width: 100%;
     margin-top: 16px;
+    margin-bottom: 16px;
 }
 
-table.weather-info td:nth-child(n+2) {
+.weather-tooltip table td:nth-child(n+2) {
     text-align: center;
 }
 

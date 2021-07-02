@@ -36,6 +36,7 @@ class WeatherService extends AbstractService
                 'plugins' => array('serializer'),
             )
         );
+        $this->weather = null;
     }
 
     public function prepare($weatherJson) {
@@ -70,32 +71,41 @@ class WeatherService extends AbstractService
     }
 
     public function get() {
+        if (!is_null($this->weather)) {
+            return $this->weather;
+        }
+
         $success = false;
-        $weather = $this->cache->getItem('weather', $success);
+        $key = 'weather_'.md5(serialize($this->getParams()));
+        $weather = $this->cache->getItem($key, $success);
         if ($success) {
+            $this->weather = $weather;
             return $weather;
         }
 
         $weatherJson = $this->load();
         $weather = $this->prepare($weatherJson);
-        $this->cache->setItem('weather', $weather);
+        $this->cache->setItem($key, $weather);
+        $this->weather = $weather;
         return $weather;
+    }
+
+    protected function getParams() {
+        return array(
+            'lat' => $this->configManager->get('weather.lat'),
+            'lon' => $this->configManager->get('weather.lon'),
+            'exclude' => 'minutely',
+            'units' => $this->configManager->get('weather.units', 'metric'),
+            'lang' => explode('-', $this->configManager->get('i18n.locale', $this->configManager->get('weather.lang', 'en')))[0],
+            'appid' => $this->configManager->get('weather.appid'),
+        );
     }
 
     public function load() {
         $client = new \Zend\Http\Client('https://api.openweathermap.org/data/2.5/onecall', array(
             'timeout' => 10,
         ));
-        $client->setParameterGet(
-            array(
-                'lat' => $this->configManager->get('weather.lat'),
-                'lon' => $this->configManager->get('weather.lon'),
-                'exclude' => 'minutely',
-                'units' => $this->configManager->get('weather.units', 'metric'),
-                'lang' => explode('-', $this->configManager->get('i18n.locale', $this->configManager->get('weather.lang', 'en')))[0],
-                'appid' => $this->configManager->get('weather.appid'),
-            )
-        );
+        $client->setParameterGet($this->getParams());
         try {
             $response = $client->send();
             if ($response->isSuccess()) {

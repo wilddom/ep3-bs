@@ -18,8 +18,19 @@ class Wind
         return $this->getFormatted();
     }
 
+    public function isValid()
+    {
+        return $this->speed->isValid();
+    }
+
     public function getFormatted()
     {
+        if (!$this->speed->isValid()) {
+            return '';
+        }
+        if (!$this->direction->isValid()) {
+            return $this->speed->getFormatted();
+        }
         return $this->speed->getFormatted().' '.$this->getDirectionDescription();
     }
 
