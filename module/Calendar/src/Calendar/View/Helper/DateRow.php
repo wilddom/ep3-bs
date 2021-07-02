@@ -16,7 +16,7 @@ class DateRow extends AbstractHelper
         $dayName = current(preg_split('/,|\s/', $view->dateFormat($date, IntlDateFormatter::FULL)));
         $dateFormat = $view->dateFormat($date, IntlDateFormatter::LONG);
 
-        $weather = $view->calendarCellWeather($date, 'day');
+        $weather = $view->weatherCell($date, 'day');
 
         return sprintf('<tr class="calendar-date-row %s"><td colspan="%s"><div class="day-label">%s</div><div class="date-label">%s</div>%s</td></tr>',
             $outerClasses, $colspan, $dayName, $dateFormat, $weather);
