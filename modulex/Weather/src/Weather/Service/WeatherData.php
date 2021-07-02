@@ -103,9 +103,15 @@ class WeatherData
                 $data->min = $min;
             }
         }
-        $value = round((floatval($data->max) + floatval($data->min)) / 2, 2);
+        $values = array();
+        foreach ($data as $key => $val) {
+            if (!empty($val)) {
+                $values[] = $val;
+            }
+        }
+        $now = array_sum($values)/count($values);
         return new Temperature(
-            new Unit($value, $units),
+            new Unit($now, $units),
             new Unit($data->min, $units),
             new Unit($data->max, $units),
             new Unit($data->day, $units),
