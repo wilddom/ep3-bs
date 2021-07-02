@@ -44,47 +44,24 @@ class WeatherService extends AbstractService
         if (!property_exists($weatherJson, 'timezone')) {
             return $weather;
         }
-        $timezone = new \DateTimeZone($weatherJson->timezone);
+        $units = $this->configManager->get('weather.units', 'metric');
 
-        if (property_exists($weatherJson, 'list')) {
-            foreach($weatherJson->list as $day) {
-                $w = new WeatherData();
-                $w->dt = new DateTime('@'.$day->dt);
-                $w->dt->setTimezone($timezone);
-                $w->temperature = $day->temp->day;
-                $w->description = $day->weather[0]->description;
-                $w->icon = $day->weather[0]->icon;
-                $weather->setDaily($w);
-            }
-        }
         if (property_exists($weatherJson, 'daily')) {
             foreach($weatherJson->daily as $day) {
-                $w = new WeatherData();
-                $w->dt = new DateTime('@'.$day->dt);
-                $w->dt->setTimezone($timezone);
-                $w->temperature = $day->temp->day;
-                $w->description = $day->weather[0]->description;
-                $w->icon = $day->weather[0]->icon;
+                $day->main = $weatherJson;
+                $w = new WeatherData($day, $units);
                 $weather->setDaily($w);
             }
         }
-        if (property_exists($weatherJson, 'current')) {
-            $w = new WeatherData();
-            $w->dt = new DateTime('@'.$weatherJson->current->dt);
-            $w->dt->setTimezone($timezone);
-            $w->temperature = $weatherJson->current->temp;
-            $w->description = $weatherJson->current->weather[0]->description;
-            $w->icon = $weatherJson->current->weather[0]->icon;
-            $weather->setDaily($w);
-        }
+        // if (property_exists($weatherJson, 'current')) {
+        //     $weatherJson->current->main = $weatherJson;
+        //     $w = new WeatherData($weatherJson->current, $units);
+        //     $weather->setDaily($w);
+        // }
         if (property_exists($weatherJson, 'hourly')) {
             foreach($weatherJson->hourly as $hour) {
-                $w = new WeatherData();
-                $w->dt = new DateTime('@'.$hour->dt);
-                $w->dt->setTimezone($timezone);
-                $w->temperature = $hour->temp;
-                $w->description = $hour->weather[0]->description;
-                $w->icon = $hour->weather[0]->icon;
+                $hour->main = $weatherJson;
+                $w = new WeatherData($hour, $units);
                 $weather->setHourly($w);
             }
         }

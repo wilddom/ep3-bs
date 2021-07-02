@@ -29,11 +29,43 @@ class WeatherCell extends AbstractHelper
         else if ($type == 'hour') {
             $weather = $weatherCol->getHourly($date);
         }
+        else {
+            return '';
+        }
 
-        if (!is_null($weather)) {
-            $tooltip = $weather->description;
-            return sprintf('<div class="weather-%s" data-tooltip="%s"><img src="%s" alt="%s"><span class="weather-temperature">%s °C</span></div>',
-                $type, $tooltip, $weather->getIconUrl(), $weather->description, round($weather->temperature, 1));
+        if (is_null($weather)) {
+            return sprintf('<div class="weather-%s"></div>', $type);
+        }
+
+        if ($type == 'day') {
+            $tooltip = '';
+            $tooltip = '<p class="weather-info">';
+            $tooltip .= 'Wetter: '.$weather->weather->description;
+            $tooltip .= '<br>Wind: '.$weather->wind;
+            $tooltip .= '<br>Niederschlag: '.$weather->precipitation.' ('.$weather->pop.')';
+            $tooltip .= '<br>Luftfeuchtigkeit: '.$weather->humidity;
+            $tooltip .= '<br>Druck: '.$weather->pressure;
+            $tooltip .= '<br>Taupunkt: '.$weather->dew_point->getFormatted(1);
+            $tooltip .= '<br>UV: '.$weather->uvi;
+            $tooltip .= '</p>';
+            $tooltip .= '<table class="weather-info">';
+            $tooltip .= '<tr><td></td><td>Temperatur</td><td>Gefühlt</td></tr>';
+            $tooltip .= '<tr><td>Morgen</td><td>'.$weather->temperature->morning->getFormatted(0).'</td><td>'.$weather->feels_like->morning->getFormatted(0).'</td></tr>';
+            $tooltip .= '<tr><td>Nachmittag</td><td>'.$weather->temperature->day->getFormatted(0).'</td><td>'.$weather->feels_like->day->getFormatted(0).'</td></tr>';
+            $tooltip .= '<tr><td>Abend</td><td>'.$weather->temperature->evening->getFormatted(0).'</td><td>'.$weather->feels_like->evening->getFormatted(0).'</td></tr>';
+            $tooltip .= '<tr><td>Nacht</td><td>'.$weather->temperature->night->getFormatted(0).'</td><td>'.$weather->feels_like->night->getFormatted(0).'</td></tr>';
+            $tooltip .= '</table>';
+            $tooltip .= '<p class="weather-info">';
+            $tooltip .= '<br>Sonnenaufgang: '.$weather->sun->rise->format('H:i');
+            $tooltip .= '<br>Sonnenuntergang: '.$weather->sun->set->format('H:i');
+            $tooltip .= '</p>';
+
+            return sprintf('<div class="weather-%s" data-tooltip="%s"><img src="%s" alt="%s"><span class="weather-temperature">%s</span></div>',
+                $type, htmlentities($tooltip), $weather->weather->getIconUrl(), $weather->weather->description, $weather->temperature->getFormatted(0));
+        }
+        else if ($type == 'hour') {
+            return sprintf('<div class="weather-%s"><img src="%s" alt="%s"><span class="weather-temperature">%s</span></div>',
+                $type, $weather->weather->getIconUrl(), $weather->weather->description, $weather->temperature->getFormatted(0));
         }
         return '';
     }
