@@ -26,6 +26,8 @@ $this->setup(array(
 
     <?= $this->squareDateFormat($this->dateStart, $this->dateEnd) ?>
 
+    <?= $this->weatherHourly($this->dateStart) ?>
+
     <?php if ($this->bookingsFromUser && $this->flag != 'fb'): ?>
         <?= $this->partial('square/square/index.own.phtml', $this->vars()) ?>
     <?php elseif ($this->bookable): ?>

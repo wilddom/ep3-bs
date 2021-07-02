@@ -1,6 +1,6 @@
 <?php
 
-namespace Calendar\View\Helper\Cell;
+namespace Weather\View\Helper;
 
 use DateTime;
 use IntlDateFormatter;
@@ -49,6 +49,9 @@ class WeatherInfo extends AbstractHelper
         }
         if ($weather->uvi->isValid()) {
             $tooltip .= '<br>UV: '.$weather->uvi;
+        }
+        if ($weather->visibility->isValid()) {
+            $tooltip .= '<br>Sicht: '.$weather->visibility;
         }
         $tooltip .= '</p>';
         if ($weather->temperature->isComplete()) {
