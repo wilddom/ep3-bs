@@ -42,6 +42,7 @@ class WeatherCell extends AbstractHelper
             $tooltip = '<p class="weather-info">';
             $tooltip .= 'Wetter: '.$weather->weather->description;
             $tooltip .= '<br>Wind: '.$weather->wind;
+            $tooltip .= '<br>Bedeckt: '.$weather->clouds;
             $tooltip .= '<br>Niederschlag: '.$weather->precipitation.' ('.$weather->pop.')';
             $tooltip .= '<br>Luftfeuchtigkeit: '.$weather->humidity;
             $tooltip .= '<br>Druck: '.$weather->pressure;
@@ -55,10 +56,10 @@ class WeatherCell extends AbstractHelper
             $tooltip .= '<tr><td>Abend</td><td>'.$weather->temperature->evening->getFormatted(0).'</td><td>'.$weather->feels_like->evening->getFormatted(0).'</td></tr>';
             $tooltip .= '<tr><td>Nacht</td><td>'.$weather->temperature->night->getFormatted(0).'</td><td>'.$weather->feels_like->night->getFormatted(0).'</td></tr>';
             $tooltip .= '</table>';
-            $tooltip .= '<p class="weather-info">';
-            $tooltip .= '<br>Sonnenaufgang: '.$weather->sun->rise->format('H:i');
-            $tooltip .= '<br>Sonnenuntergang: '.$weather->sun->set->format('H:i');
-            $tooltip .= '</p>';
+            $tooltip .= '<table class="weather-info">';
+            $tooltip .= '<tr><td>Sonnenaufgang</td><td>'.$weather->sun->rise->format('H:i').'</td></tr>';
+            $tooltip .= '<tr><td>Sonnenuntergang</td><td>'.$weather->sun->set->format('H:i').'</td></tr>';
+            $tooltip .= '</table>';
 
             return sprintf('<div class="weather-%s" data-tooltip="%s"><img src="%s" alt="%s"><span class="weather-temperature">%s</span></div>',
                 $type, htmlentities($tooltip), $weather->weather->getIconUrl(), $weather->weather->description, $weather->temperature->getFormatted(0));
