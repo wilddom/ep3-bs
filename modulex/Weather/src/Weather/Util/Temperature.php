@@ -26,6 +26,24 @@ class Temperature
         return true;
     }
 
+    public function getCurrent() {
+        $now = new \DateTime('now');
+        if ($this->isComplete()) {
+            $hours = (int)$now->format('H');
+            if ($hours >= 6 && $hours < 12) {
+                return $this->morning;
+            }
+            if ($hours >= 12 && $hours < 17) {
+                return $this->day;
+            }
+            if ($hours >= 17 && $hours < 20) {
+                return $this->evening;
+            }
+            return $this->night;
+        }
+        return $this->now;
+    }
+
     public function isValid() {
         return $this->now->isValid();
     }
