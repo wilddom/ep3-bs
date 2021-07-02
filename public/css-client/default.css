@@ -22,10 +22,7 @@ h2, h3, h4, h5, h6 { color: #547B97; }
 
 table.weather-info {
     width: 100%;
-}
-
-table.weather-info {
-    width: 100%;
+    margin-top: 16px;
 }
 
 table.weather-info td:nth-child(n+2) {
