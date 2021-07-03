@@ -25,7 +25,7 @@ return [
 
     'Administration' => 'Verwaltung',
 
-    'My bookings' => 'Meine Buchungen',
-    'My account' => 'Meine Daten',
+    'My bookings' => 'Buchungen',
+    'My account' => 'Konto',
 
 ];
