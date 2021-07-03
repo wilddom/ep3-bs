@@ -71,13 +71,16 @@ class WeatherInfo extends AbstractHelper
         }
         $tooltip .= '</div>';
 
-        $now = new \DateTime('now');
-        $temp = $weather->temperature;
-        if ($weather->dt->format('Y-m-d') == $now->format('Y-m-d')) {
-            $temp = $weather->temperature->getCurrent();
+        $temp = $weather->temperature->getFormatted(0);
+        if ($weather->temperature->max->isValid() && $weather->temperature->min->isValid()) {
+            $temp = sprintf('%d / %d %s', 
+                        round($temp = $weather->temperature->max->getValue(), 0),
+                        round($temp = $weather->temperature->min->getValue(), 0),
+                        $weather->temperature->min->getUnit()
+                    );
         }
         return sprintf('<div class="weather-info" data-tooltip="%s"><img src="%s" alt="%s"><span class="weather-temperature">%s</span></div>',
-            htmlentities($tooltip), $weather->weather->getIconUrl(), $weather->weather->description, $temp->getFormatted(0));
+            htmlentities($tooltip), $weather->weather->getIconUrl(), $weather->weather->description, $temp);
     }
 
 }
