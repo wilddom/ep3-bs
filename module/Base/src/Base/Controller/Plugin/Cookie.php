@@ -16,7 +16,7 @@ class Cookie extends AbstractPlugin
         $this->configManager = $configManager;
     }
 
-    public function set($name, $value)
+    public function set($name, $value, $ttl=null)
     {
         if (! (is_string($name) && strlen($name) > 1)) {
             throw new RuntimeException('Invalid cookie name to set');
@@ -27,8 +27,13 @@ class Cookie extends AbstractPlugin
         }
 
         $fullName = $this->configManager->need('cookie_config.cookie_name_prefix') . '-' . $name;
+        
+        $expires = 0;
+        if (!is_null($ttl)) {
+            $expires = time() + (int)$ttl;
+        }
 
-        setcookie($fullName, $value, 0, '/');
+        setcookie($fullName, $value, $expires, '/');
     }
 
     public function get($name, $default = null)
