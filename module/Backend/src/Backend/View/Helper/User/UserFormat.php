@@ -65,13 +65,15 @@ class UserFormat extends AbstractHelper
 
         /* Actions col */
 
-        $html .= sprintf('<td class="actions-col no-print"><a href="%s" class="unlined gray symbolic symbolic-edit">%s</a> &nbsp; <a href="%s" class="unlined gray symbolic symbolic-booking">%s</a> &nbsp; <a href="%s" class="unlined gray symbolic symbolic-user">%s</a></td>',
+        $html .= sprintf('<td class="actions-col no-print"><a href="%s" class="unlined gray symbolic symbolic-edit">%s</a> &nbsp; <a href="%s" class="unlined gray symbolic symbolic-booking">%s</a>%s</td>',
             $view->url('backend/user/edit', ['uid' => $user->need('uid')], ['query' => ['search' => $search]]),
             $view->t('Edit'),
             $view->url('backend/booking', [], ['query' => ['search' => '(uid = ' . $user->need('uid') . ')']]),
             $view->t('Bookings'),
-            $view->url('user/manual-activation', [], ['query' => ['id' => $user->need('uid')]]),
-            $view->t('Activate user'));
+            ($user->need('status') == 'disabled') ? sprintf(' &nbsp; <a href="%s" class="unlined gray symbolic symbolic-user">%s</a>',
+                $view->url('user/manual-activation', [], ['query' => ['id' => $user->need('uid')]]),
+                $view->t('Activate user')) : ''
+            );
         $html .= '</tr>';
 
         return $html;
