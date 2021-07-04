@@ -80,6 +80,8 @@
             var targetPanelWidth = targetPanel.outerWidth();
             var targetPanelMarginTop = parseInt(targetPanel.css("margin-top"));
             var targetPanelMarginLeft = parseInt(targetPanel.css("margin-left"));
+            var targetPanelPositionTop = targetPanel.position().top;
+            var targetPanelPositionLeft = targetPanel.position().left;
 
             if (isNaN(targetPanelMarginTop)) {
                 targetPanelMarginTop = 0;
@@ -130,17 +132,17 @@
 
                     targetPanelLeft = targetPanelMarginLeft + targetParentPaddingLeft;
                 } else {
-                    targetPanelLeft = Math.floor(targetPanel.position().left);
+                    targetPanelLeft = targetPanelPositionLeft;
                 }
 
                 linksBack.css({
                     "left": targetPanelLeft - linksBackWidth,
-                    "top": Math.min(targetPanel.position().top + targetPanelMarginTop + Math.round(targetPanel.outerHeight() / 2) - Math.round(linksBack.outerHeight() / 2), 384)
+                    "top": Math.min(targetPanelPositionTop + targetPanelMarginTop + Math.round(targetPanel.outerHeight() / 2) - Math.round(linksBack.outerHeight() / 2), 384)
                 });
 
                 linksForth.css({
                     "left": targetPanelLeft + targetPanelWidth,
-                    "top": Math.min(targetPanel.position().top + targetPanelMarginTop + Math.round(targetPanel.outerHeight() / 2) - Math.round(linksForth.outerHeight() / 2), 384)
+                    "top": Math.min(targetPanelPositionTop + targetPanelMarginTop + Math.round(targetPanel.outerHeight() / 2) - Math.round(linksForth.outerHeight() / 2), 384)
                 });
             }
         }
