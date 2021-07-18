@@ -19,7 +19,7 @@ return [
 
     'New password' => 'Nouveau mot de passe',
 
-    'Get additional %shelp and information%s' => 'Obtenir %sune aide ou des Infos supplémentaires%s',
+    'Get additional %sinformation%s' => 'Obtenir %sune aide ou des Infos supplémentaires%s',
 
     'Online as %s' => 'Connecté en %s',
 

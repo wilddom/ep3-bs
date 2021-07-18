@@ -19,7 +19,7 @@ return [
 
     'New password' => 'Neues Passwort',
 
-    'Get additional %shelp and information%s' => 'Hier erhalten Sie zusätzliche %sHilfe und Infos%s',
+    'Get additional %sinformation%s' => 'Hier erhalten Sie zusätzliche %sInformationen%s',
 
     'Online as %s' => 'Angemeldet als %s',
 
