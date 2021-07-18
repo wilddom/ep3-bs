@@ -19,7 +19,7 @@ return array(
 
     'New password' => 'Új jelszó',
 
-    'Get additional %shelp and information%s' => 'Több %ssegítség és információ%s kérése',
+    'Get additional %sinformation%s' => 'Több %ssegítség és információ%s kérése',
 
     'Online as %s' => 'Belépve mint %s',
 
