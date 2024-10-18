@@ -15,12 +15,14 @@ class WeatherData
     public $location;
     public $temperature;
     public $feels_like;
+    public $dew_point;
     public $humidity;
     public $pressure;
     public $wind;
     public $clouds;
     public $precipitation;
     public $pop;
+    public $uvi;
     public $sun;
     public $weather;
     public $visibility;
