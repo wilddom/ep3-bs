@@ -102,7 +102,7 @@ class WeatherService extends AbstractService
     }
 
     public function load() {
-        $client = new \Zend\Http\Client('https://api.openweathermap.org/data/2.5/onecall', array(
+        $client = new \Zend\Http\Client('https://api.openweathermap.org/data/3.0/onecall', array(
             'timeout' => 10,
         ));
         $client->setParameterGet($this->getParams());
