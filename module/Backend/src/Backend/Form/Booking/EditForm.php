@@ -16,6 +16,7 @@ class EditForm extends Form
     protected $bookingStatusService;
     protected $bookingTypeService;
     protected $squareManager;
+    protected $optionManager;
 
     public function __construct(BookingStatusService $bookingStatusService, BookingTypeService $bookingTypeService, SquareManager $squareManager, OptionManager $optionManager)
     {
