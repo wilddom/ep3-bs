@@ -7,7 +7,7 @@ class Sun
     public $rise;
     public $set;
 
-    public function __construct(\DateTime $rise=null, \DateTime $set=null)
+    public function __construct(?\DateTime $rise=null, ?\DateTime $set=null)
     {
         if ($set < $rise) {
             throw new \LogicException('Sunset cannot be before sunrise!');

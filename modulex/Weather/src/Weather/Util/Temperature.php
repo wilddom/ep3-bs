@@ -58,17 +58,12 @@ class Temperature
         return $this->now->getValue();
     }
 
-    public function getDescription()
-    {
-        return $this->now->getDescription();
-    }
-
     public function getFormatted($precision = null)
     {
         return $this->now->getFormatted($precision);
     }
 
-    public function __construct(Unit $now, Unit $min = null, Unit $max = null, Unit $day = null, Unit $morning = null, Unit $evening = null, Unit $night = null)
+    public function __construct(?Unit $now, ?Unit $min = null, ?Unit $max = null, ?Unit $day = null, ?Unit $morning = null, ?Unit $evening = null, ?Unit $night = null)
     {
         $this->now = is_null($now) ? new Unit($now) : $now;
         $this->min = is_null($min) ? new Unit($min) : $min;
