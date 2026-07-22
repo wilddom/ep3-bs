@@ -196,11 +196,18 @@ class BookingController extends AbstractActionController
                     $type = null;
                 }
 
+                if ($square->getMeta('allow-custom-name', 'false') == 'true') {
+                    $customName = trim($this->params()->fromPost('bf-custom-name'));
+                } else {
+                    $customName = null;
+                }
+
                 $bookingService = $serviceManager->get('Booking\Service\BookingService');
                 $bookingService->createSingle($user, $square, $quantityParam, $byproducts['dateStart'], $byproducts['dateEnd'], $bills, array(
                     'player-names' => serialize($playerNames),
                     'notes' => $userNotes,
                     'type' => $type,
+                    'custom-name' => $customName,
                 ));
 
                 $this->flashMessenger()->addSuccessMessage(sprintf($this->t('%sCongratulations:%s Your %s has been booked!'),

@@ -95,6 +95,19 @@ class EditForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'bf-custom-name',
+            'type' => 'Text',
+            'attributes' => array(
+                'id' => 'bf-custom-name',
+                'style' => 'width: 124px',
+            ),
+            'options' => array(
+                'label' => 'Booking name',
+                'notes' => 'Shown in the calendar instead of the booking user\'s name',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'bf-quantity',
             'type' => 'Text',
             'attributes' => array(

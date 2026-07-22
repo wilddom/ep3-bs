@@ -31,7 +31,7 @@ class Create extends AbstractPlugin
         $this->connection = $connection;
     }
 
-    public function __invoke($user, $timeStart, $timeEnd, $dateStart, $dateEnd, $repeat, $square, $statusBilling, $quantity, $notes = null, $creator = null, $type = null)
+    public function __invoke($user, $timeStart, $timeEnd, $dateStart, $dateEnd, $repeat, $square, $statusBilling, $quantity, $notes = null, $creator = null, $type = null, $customName = null)
     {
         $controller = $this->getController();
 
@@ -114,6 +114,10 @@ class Create extends AbstractPlugin
 
             if ($type) {
                 $bookingMeta['type'] = $type;
+            }
+
+            if ($customName) {
+                $bookingMeta['custom-name'] = $customName;
             }
 
             /* Create booking */

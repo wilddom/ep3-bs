@@ -44,14 +44,14 @@ class OccupiedForPrivileged extends AbstractHelper
 
             $cellStyle = $cellStyle ?: null;
 
-            $cellLabel = $booking->needExtra('user')->need('alias');
+            $cellLabel = $booking->getMeta('custom-name') ?: $booking->needExtra('user')->need('alias');
             $cellGroup = ' cc-group-' . $booking->need('bid');
 
             switch ($booking->need('status')) {
                 case 'single':
                     return $view->calendarCellLink($view->escapeHtml($cellLabel), $view->url('backend/booking/edit', [], $cellLinkParams), 'cc-single' . $cellGroup, null, $cellStyle);
                 case 'subscription':
-                    return $view->calendarCellLink($cellLabel, $view->url('backend/booking/edit', [], $cellLinkParams), 'cc-multiple' . $cellGroup, null, $cellStyle);
+                    return $view->calendarCellLink($view->escapeHtml($cellLabel), $view->url('backend/booking/edit', [], $cellLinkParams), 'cc-multiple' . $cellGroup, null, $cellStyle);
             }
         }
     }

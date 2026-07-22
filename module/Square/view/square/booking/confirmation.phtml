@@ -71,6 +71,16 @@ $this->setup(array(
 
         <?php endif; ?>
 
+        <?php if ($square->getMeta('allow-custom-name', 'false') == 'true'): ?>
+
+            <label for="bf-custom-name"><?= $this->t('Booking name') ?></label>
+
+            <input type="text" name="bf-custom-name" id="bf-custom-name" maxlength="64" style="width: 100%;">
+
+            <div class="separator separator-line"></div>
+
+        <?php endif; ?>
+
         <?php if ($bookingTypeTitles): ?>
 
             <label for="bf-type"><?= $this->t('Type') ?></label>

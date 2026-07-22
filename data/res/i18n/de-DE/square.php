@@ -63,6 +63,7 @@ return [
 
     'Type' => 'Spielart',
     '- none -' => '- keine -',
+    'Booking name' => 'Bezeichnung',
 
     'Cancel this booking' => 'Buchung stornieren',
     'Cancel booking' => 'Buchung stornieren',
