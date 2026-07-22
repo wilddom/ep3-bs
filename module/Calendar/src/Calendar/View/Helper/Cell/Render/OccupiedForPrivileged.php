@@ -3,16 +3,19 @@
 namespace Calendar\View\Helper\Cell\Render;
 
 use Booking\Service\BookingStatusService;
+use Booking\Service\BookingTypeService;
 use Zend\View\Helper\AbstractHelper;
 
 class OccupiedForPrivileged extends AbstractHelper
 {
 
     protected $bookingStatusService;
+    protected $bookingTypeService;
 
-    public function __construct(BookingStatusService $bookingStatusService)
+    public function __construct(BookingStatusService $bookingStatusService, BookingTypeService $bookingTypeService)
     {
         $this->bookingStatusService = $bookingStatusService;
+        $this->bookingTypeService = $bookingTypeService;
     }
 
     public function __invoke(array $reservations, array $cellLinkParams)
@@ -27,12 +30,19 @@ class OccupiedForPrivileged extends AbstractHelper
             $reservation = current($reservations);
             $booking = $reservation->needExtra('booking');
             $bookingStatusColor = $this->bookingStatusService->getStatusColor($booking->getBillingStatus());
+            $bookingTypeColor = $this->bookingTypeService->getTypeColor($booking->getMeta('type'));
+
+            $cellStyle = '';
 
             if ($bookingStatusColor) {
-                $cellStyle = 'outline: solid 3px ' . $bookingStatusColor;
-            } else {
-                $cellStyle = null;
+                $cellStyle .= 'outline: solid 3px ' . $bookingStatusColor . ';';
             }
+
+            if ($bookingTypeColor) {
+                $cellStyle .= 'background-color: ' . $bookingTypeColor . ';';
+            }
+
+            $cellStyle = $cellStyle ?: null;
 
             $cellLabel = $booking->needExtra('user')->need('alias');
             $cellGroup = ' cc-group-' . $booking->need('bid');

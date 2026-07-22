@@ -61,6 +61,9 @@ return [
         => 'Ihre Buchung ist verbindlich. Sie können sie jedoch bis zu %s vorher stornieren.',
     'Complete booking' => 'Buchung abschließen',
 
+    'Type' => 'Spielart',
+    '- none -' => '- keine -',
+
     'Cancel this booking' => 'Buchung stornieren',
     'Cancel booking' => 'Buchung stornieren',
     'Are you sure you want to cancel this booking?' => 'Sind Sie sicher, dass Sie diese Buchung stornieren möchten?',

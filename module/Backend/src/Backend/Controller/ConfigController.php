@@ -302,4 +302,44 @@ class ConfigController extends AbstractActionController
         );
     }
 
+    public function behaviourTypeColorsAction()
+    {
+        $this->authorize('admin.config');
+
+        $serviceManager = @$this->getServiceLocator();
+        $formElementManager = $serviceManager->get('FormElementManager');
+
+        $typeColorsForm = $formElementManager->get('Backend\Form\Config\BehaviourTypeColorsForm');
+
+        $bookingTypeService = $serviceManager->get('Booking\Service\BookingTypeService');
+
+        if ($this->getRequest()->isPost()) {
+            $typeColorsForm->setData($this->params()->fromPost());
+
+            if ($typeColorsForm->isValid()) {
+                $data = $typeColorsForm->getData();
+
+                $typeColors = $data['cf-type-colors'];
+
+                if ($bookingTypeService->checkTypeColors($typeColors)) {
+                    $bookingTypeService->setTypeColors($typeColors, $this->config('i18n.locale'));
+
+                    $this->flashMessenger()->addSuccessMessage('Configuration has been saved');
+                } else {
+                    $this->flashMessenger()->addErrorMessage('Configuration is (partially) invalid');
+                }
+            } else {
+                $this->flashMessenger()->addErrorMessage('Configuration is (partially) invalid');
+            }
+
+            return $this->redirect()->toRoute('backend/config/behaviour/type-colors');
+        } else {
+            $typeColorsForm->get('cf-type-colors')->setValue($bookingTypeService->getTypeColorsRaw());
+        }
+
+        return array(
+            'typeColorsForm' => $typeColorsForm,
+        );
+    }
+
 }

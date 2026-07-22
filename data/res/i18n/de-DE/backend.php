@@ -188,6 +188,7 @@ return [
     'Billing status' => 'Rechnungsstatus',
     'Billing total' => 'Rechnungssumme',
     'Billing status options' => 'Rechnungsstatus-Bezeichnungen',
+    'Type' => 'Spielart',
     'Number of players' => 'Anzahl Spieler',
     'Booked to' => 'Gebucht auf',
     'Edit user once saved' => 'Benutzer anschließend bearbeiten',
