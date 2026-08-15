@@ -392,4 +392,6 @@ return [
     'Booked by' => 'Gebucht von',
 
     'User matched by' => 'Benutzer ermittelt nach',
+
+    'Limit bookings' => 'Buchungen einschränken',
 ];

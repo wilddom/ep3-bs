@@ -225,7 +225,7 @@ return [
     'We are very sorry, but the registration is currently not possible.' => 'Entschuldigung, aber die Registrierung ist derzeit nicht möglich.',
 
     'Login data' => 'Zugangsdaten',
-    'Account data' => 'Zugangsdaten',
+    'Account data' => 'Einstellungen',
     'Personal data' => 'Persönliche Angaben',
 
     'I have read and accept the %1$sprivacy policy%2$s' => 'Ich habe die %1$sDatenschutzerklärung%2$s gelesen und akzeptiere diese',
