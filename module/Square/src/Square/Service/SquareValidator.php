@@ -425,4 +425,17 @@ class SquareValidator extends AbstractService
         }
     }
 
+    /**
+     * Checks if the current user is allowed to cancel a single reservation of this booking.
+     *
+     * @param Booking $booking
+     * @return boolean
+     */
+    public function isReservationCancellable(Booking $booking)
+    {
+        return $this->user &&
+            $this->user->can('calendar.cancel-subscription-bookings') &&
+            $booking->need('status') == 'subscription';
+    }
+
 }
