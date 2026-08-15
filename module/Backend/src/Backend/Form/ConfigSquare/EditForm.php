@@ -141,6 +141,18 @@ class EditForm extends Form
         ));
 
         $this->add(array(
+            'name' => 'cf-allow-custom-name',
+            'type' => 'Checkbox',
+            'attributes' => array(
+                'id' => 'cf-allow-custom-name',
+            ),
+            'options' => array(
+                'label' => 'Allow users to set a custom name for their booking',
+                'notes' => 'The custom name replaces the booking user\'s name in the calendar',
+            ),
+        ));
+
+        $this->add(array(
             'name' => 'cf-time-start',
             'type' => 'Text',
             'attributes' => array(

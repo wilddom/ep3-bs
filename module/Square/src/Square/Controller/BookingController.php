@@ -54,8 +54,11 @@ class BookingController extends AbstractActionController
 
         $serviceManager = @$this->getServiceLocator();
         $squareValidator = $serviceManager->get('Square\Service\SquareValidator');
+        $bookingTypeService = $serviceManager->get('Booking\Service\BookingTypeService');
 
         $byproducts = $squareValidator->isBookable($dateStartParam, $dateEndParam, $timeStartParam, $timeEndParam, $squareParam);
+
+        $byproducts['bookingTypeTitles'] = $bookingTypeService->getTypeTitles();
 
         $user = $byproducts['user'];
 
@@ -187,10 +190,24 @@ class BookingController extends AbstractActionController
                     $userNotes = '';
                 }
 
+                $type = $this->params()->fromPost('bf-type');
+
+                if (! ($type && $bookingTypeService->checkType($type))) {
+                    $type = null;
+                }
+
+                if ($square->getMeta('allow-custom-name', 'false') == 'true') {
+                    $customName = trim($this->params()->fromPost('bf-custom-name'));
+                } else {
+                    $customName = null;
+                }
+
                 $bookingService = $serviceManager->get('Booking\Service\BookingService');
                 $bookingService->createSingle($user, $square, $quantityParam, $byproducts['dateStart'], $byproducts['dateEnd'], $bills, array(
                     'player-names' => serialize($playerNames),
                     'notes' => $userNotes,
+                    'type' => $type,
+                    'custom-name' => $customName,
                 ));
 
                 $this->flashMessenger()->addSuccessMessage(sprintf($this->t('%sCongratulations:%s Your %s has been booked!'),
