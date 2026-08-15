@@ -263,4 +263,41 @@ class BookingController extends AbstractActionController
         ));
     }
 
+    public function reservationCancellationAction()
+    {
+        $rid = $this->params()->fromQuery('rid');
+
+        if (! (is_numeric($rid) && $rid > 0)) {
+            throw new RuntimeException('This reservation does not exist');
+        }
+
+        $serviceManager = @$this->getServiceLocator();
+        $bookingManager = $serviceManager->get('Booking\Manager\BookingManager');
+        $reservationManager = $serviceManager->get('Booking\Manager\ReservationManager');
+        $squareValidator = $serviceManager->get('Square\Service\SquareValidator');
+
+        $reservation = $reservationManager->get($rid);
+        $booking = $bookingManager->get($reservation->need('bid'));
+
+        if (! $squareValidator->isReservationCancellable($booking)) {
+            throw new RuntimeException('This reservation cannot be cancelled.');
+        }
+
+        $origin = $this->redirectBack()->getOriginAsUrl();
+
+        if ($this->params()->fromQuery('confirmed') == 'true') {
+            $reservationManager->delete($reservation);
+
+            $this->flashMessenger()->addSuccessMessage(sprintf($this->t('Your reservation has been %scancelled%s.'),
+                '<b>', '</b>'));
+
+            return $this->redirectBack()->toOrigin();
+        }
+
+        return $this->ajaxViewModel(array(
+            'rid' => $rid,
+            'origin' => $origin,
+        ));
+    }
+
 }

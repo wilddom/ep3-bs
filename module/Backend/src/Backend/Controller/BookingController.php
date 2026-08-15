@@ -615,9 +615,8 @@ class BookingController extends AbstractActionController
         }
 
         $playerNames = @unserialize($playerNames);
-
         if (! $playerNames) {
-            throw new \RuntimeException('Invalid player names data stored in database');
+            $playerNames = [];
         }
 
         $players = array();

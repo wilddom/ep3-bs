@@ -27,6 +27,7 @@ return [
 
     'User-Administration' => 'Benutzer-Verwaltung',
     'Here you can create, edit or delete the users of your system.' => 'Hier können Sie die Benutzer Ihres Systems erstellen, bearbeiten oder löschen.',
+    'Latest created users' => 'Zuletzt erstellte Benutzer',
 
     'Booking-Administration' => 'Buchungs-Verwaltung',
     'Here you can create, edit or delete the bookings of your system.' => 'Hier können Sie die Buchungen Ihres Systems erstellen, bearbeiten oder löschen.',
@@ -396,4 +397,6 @@ return [
     'Booked by' => 'Gebucht von',
 
     'User matched by' => 'Benutzer ermittelt nach',
+
+    'Limit bookings' => 'Buchungen einschränken',
 ];
