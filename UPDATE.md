@@ -19,7 +19,9 @@ after the update.
 
 ## Update from 1.9.0 to `1.9.1`
 
-There are no steps necessary when updating from version `1.9.0`.
+- Replace the `data/res/i18n` directory
+- Replace the `module/` directory
+- Replace the `src/` directory
 
 
 ## Update from 1.8.1 to `1.9.0`
