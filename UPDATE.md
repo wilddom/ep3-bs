@@ -17,6 +17,11 @@ If you haven't made any changes to the core files, your configuration, customiza
 after the update.
 
 
+## Update from 1.9.0 to `1.9.1`
+
+There are no steps necessary when updating from version `1.9.0`.
+
+
 ## Update from 1.8.1 to `1.9.0`
 
 - Replace the `module/` directory
