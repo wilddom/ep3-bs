@@ -320,7 +320,7 @@ class Client implements Stdlib\DispatchableInterface
             // reasons, see #4215 for a discussion - currently authentication is also
             // cleared for peer subdomains due to technical limits
             $nextHost = $this->getRequest()->getUri()->getHost();
-            if (! preg_match('/' . preg_quote($lastHost, '/') . '$/i', $nextHost)) {
+            if ($lastHost == null || ! preg_match('/' . preg_quote($lastHost, '/') . '$/i', $nextHost)) {
                 $this->clearAuth();
             }
 
@@ -889,7 +889,7 @@ class Client implements Stdlib\DispatchableInterface
 
                 if (! empty($queryArray)) {
                     $newUri = $uri->toString();
-                    $queryString = http_build_query($queryArray, null, $this->getArgSeparator());
+                    $queryString = http_build_query($queryArray, "", $this->getArgSeparator());
 
                     if ($this->config['rfc3986strict']) {
                         $queryString = str_replace('+', '%20', $queryString);
