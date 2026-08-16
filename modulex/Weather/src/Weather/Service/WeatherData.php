@@ -11,23 +11,23 @@ use Weather\Util\Wind;
 
 class WeatherData
 {
-    public $dt;
-    public $location;
-    public $temperature;
-    public $feels_like;
-    public $dew_point;
-    public $humidity;
-    public $pressure;
-    public $wind;
-    public $clouds;
-    public $precipitation;
-    public $pop;
-    public $uvi;
-    public $sun;
-    public $weather;
-    public $visibility;
+    public \DateTime $dt;
+    public Location $location;
+    public Temperature $temperature;
+    public Temperature $feels_like;
+    public Unit $dew_point;
+    public Unit $humidity;
+    public Unit $pressure;
+    public Wind $wind;
+    public Unit $clouds;
+    public Unit $precipitation;
+    public Unit $pop;
+    public Unit $uvi;
+    public Sun $sun;
+    public Weather $weather;
+    public Unit $visibility;
 
-    public function __construct($data, $units)
+    public function __construct(mixed $data, string $units)
     {
         // This is kind of a hack, because the units are missing in the document.
         if ($units == 'metric') {
@@ -75,7 +75,7 @@ class WeatherData
         $this->weather = new Weather($data->weather[0]->id, str_replace('ß', 'ss', $data->weather[0]->description), $data->weather[0]->icon);
     }
 
-    private function prepareTemperature($data, $units) {
+    private function prepareTemperature(mixed $data, string $units): Temperature {
         if (!($data instanceof \stdClass)) {
             return new Temperature(new Unit($data, $units));
         }

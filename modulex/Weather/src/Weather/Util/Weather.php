@@ -4,30 +4,30 @@ namespace Weather\Util;
 
 class Weather
 {
-    public $id;
-    public $description;
-    public $icon;
+    public int $id;
+    public string $description;
+    public string $icon;
 
-    private static $iconUrl = "https://openweathermap.org/img/wn/%s.png";
+    private static string $iconUrl = "https://openweathermap.org/img/wn/%s.png";
 
-    public function __construct($id, $description, $icon)
+    public function __construct(int $id, string $description, string $icon)
     {
         $this->id = (int)$id;
         $this->description = (string)$description;
         $this->icon = (string)$icon;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->description;
     }
 
-    public function getIconUrl()
+    public function getIconUrl(): string
     {
         return sprintf(self::$iconUrl, $this->icon);
     }
 
-    public static function setIconUrlTemplate($iconUrl)
+    public static function setIconUrlTemplate(string $iconUrl): void
     {
         self::$iconUrl = $iconUrl;
     }

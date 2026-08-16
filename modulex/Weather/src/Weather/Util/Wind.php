@@ -4,8 +4,8 @@ namespace Weather\Util;
 
 class Wind
 {
-    public $speed;
-    public $direction;
+    public Unit $speed;
+    public ?Unit $direction;
 
     public function __construct(Unit $speed, ?Unit $direction = null)
     {
@@ -13,17 +13,17 @@ class Wind
         $this->direction = $direction;
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getFormatted();
     }
 
-    public function isValid()
+    public function isValid(): bool
     {
         return $this->speed->isValid();
     }
 
-    public function getFormatted()
+    public function getFormatted(): string
     {
         if (!$this->speed->isValid()) {
             return '';
@@ -34,7 +34,8 @@ class Wind
         return $this->speed->getFormatted().' '.$this->getDirectionDescription();
     }
 
-    public function getDirectionDescription() {
+    public function getDirectionDescription(): string
+    {
         $directions = array('N', 'NNE', 'NE', 'ENE', 'E', 'ESE', 'SE', 'SSE', 'S', 'SSW', 'SW', 'WSW', 'W', 'WNW', 'NW', 'NNW', 'N');
 	    return $directions[(int)round($this->direction->getValue() / 22.5)];
     }

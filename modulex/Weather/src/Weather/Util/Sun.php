@@ -4,8 +4,8 @@ namespace Weather\Util;
 
 class Sun
 {
-    public $rise;
-    public $set;
+    public ?\DateTime $rise;
+    public ?\DateTime $set;
 
     public function __construct(?\DateTime $rise=null, ?\DateTime $set=null)
     {
@@ -16,7 +16,7 @@ class Sun
         $this->set = $set;
     }
 
-    public function isValid() {
+    public function isValid(): bool {
         return !is_null($this->rise) && !is_null($this->set);
     }
 }

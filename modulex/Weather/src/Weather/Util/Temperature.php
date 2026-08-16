@@ -4,20 +4,20 @@ namespace Weather\Util;
 
 class Temperature
 {
-    public $now;
-    public $min;
-    public $max;
-    public $day;
-    public $morning;
-    public $evening;
-    public $night;
+    public ?Unit $now;
+    public ?Unit $min;
+    public ?Unit $max;
+    public ?Unit $day;
+    public ?Unit $morning;
+    public ?Unit $evening;
+    public ?Unit $night;
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->now->__toString();
     }
 
-    public function isComplete() {
+    public function isComplete(): bool {
         foreach ($this as $key => $value) {
             if (!$value->isValid()) {
                 return false;
@@ -26,7 +26,7 @@ class Temperature
         return true;
     }
 
-    public function getCurrent() {
+    public function getCurrent(): ?Unit {
         $now = new \DateTime('now');
         if ($this->isComplete()) {
             $hours = (int)$now->format('H');
@@ -44,21 +44,21 @@ class Temperature
         return $this->now;
     }
 
-    public function isValid() {
+    public function isValid(): bool {
         return $this->now->isValid();
     }
 
-    public function getUnit()
+    public function getUnit(): string
     {
         return $this->now->getUnit();
     }
 
-    public function getValue()
+    public function getValue(): ?float
     {
         return $this->now->getValue();
     }
 
-    public function getFormatted($precision = null)
+    public function getFormatted(?int $precision = null): string
     {
         return $this->now->getFormatted($precision);
     }

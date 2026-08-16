@@ -10,14 +10,14 @@ use Weather\Service\WeatherService;
 class WeatherCell extends AbstractHelper
 {
 
-    protected $weatherService;
+    protected WeatherService $weatherService;
 
     public function __construct(WeatherService $weatherService)
     {
         $this->weatherService = $weatherService;
     }
 
-    public function __invoke(DateTime $date, $type)
+    public function __invoke(DateTime $date, string $type)
     {
         $view = $this->getView();
 

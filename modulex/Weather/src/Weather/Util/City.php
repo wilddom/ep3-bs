@@ -4,13 +4,13 @@ namespace Weather\Util;
 
 class City extends Location
 {
-    public $id;
-    public $name;
-    public $country;
-    public $population;
-    public $timezone;
+    public int $id;
+    public ?string $name;
+    public ?string $country;
+    public ?int $population;
+    public ?\DateTimeZone $timezone;
 
-    public function __construct($id, $name = null, $lat = null, $lon = null, $country = null, $population = null, $timezoneOffset = null)
+    public function __construct(int $id, ?string $name = null, ?float $lat = null, ?float $lon = null, ?string $country = null, ?int $population = null, ?int $timezoneOffset = null)
     {
         $this->id = (int)$id;
         $this->name = isset($name) ? (string)$name : null;

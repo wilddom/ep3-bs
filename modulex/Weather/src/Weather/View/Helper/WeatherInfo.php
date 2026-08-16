@@ -9,7 +9,7 @@ use Weather\Service\WeatherData;
 
 class WeatherInfo extends AbstractHelper
 {
-    public function __invoke(WeatherData $weather=null, $description=null)
+    public function __invoke(?WeatherData $weather=null, ?string $description=null)
     {
         $view = $this->getView();
 

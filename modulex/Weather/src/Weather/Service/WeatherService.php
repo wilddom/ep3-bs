@@ -12,10 +12,10 @@ use Zend\ServiceManager\ServiceLocatorInterface;
 
 class WeatherService extends AbstractService
 {
-    protected $configManager;
-    protected $optionManager;
-    protected $cache;
-    protected $weather;
+    protected ConfigManager $configManager;
+    protected OptionManager $optionManager;
+    protected \Zend\Cache\Storage\StorageInterface $cache;
+    protected ?WeatherCollection $weather;
 
     public function __construct(
         ConfigManager $configManager,
@@ -39,7 +39,7 @@ class WeatherService extends AbstractService
         $this->weather = null;
     }
 
-    public function prepare($weatherJson) {
+    public function prepare(mixed $weatherJson): WeatherCollection {
         $weather = new WeatherCollection();
 
         if (!property_exists($weatherJson, 'timezone')) {
@@ -70,7 +70,7 @@ class WeatherService extends AbstractService
         return $weather;
     }
 
-    public function get() {
+    public function get(): WeatherCollection {
         if (!is_null($this->weather)) {
             return $this->weather;
         }
@@ -90,7 +90,7 @@ class WeatherService extends AbstractService
         return $weather;
     }
 
-    protected function getParams() {
+    protected function getParams(): array {
         return array(
             'lat' => $this->configManager->get('weather.lat'),
             'lon' => $this->configManager->get('weather.lon'),
@@ -101,7 +101,7 @@ class WeatherService extends AbstractService
         );
     }
 
-    public function load() {
+    public function load(): mixed {
         $client = new \Zend\Http\Client('https://api.openweathermap.org/data/3.0/onecall', array(
             'timeout' => 10,
         ));

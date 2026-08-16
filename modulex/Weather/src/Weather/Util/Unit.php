@@ -6,25 +6,25 @@ use JsonSerializable;
 
 class Unit implements JsonSerializable
 {
-    private $value;
-    private $unit;
+    private ?float $value;
+    private string $unit;
 
-    public function __construct($value = 0.0, $unit = "")
+    public function __construct(?float $value = 0.0, string $unit = "")
     {
         $this->value = is_null($value) ? $value : (float)$value;
         $this->unit = (string)$unit;
     }
 
-    public function isValid() {
+    public function isValid(): bool {
         return !is_null($this->value);
     }
 
-    public function __toString()
+    public function __toString(): string
     {
         return $this->getFormatted();
     }
 
-    public function getUnit()
+    public function getUnit(): string
     {
         // Units are inconsistent. Only celsius and fahrenheit are not abbreviated. This check fixes that.
         // Also, the API started to return "metric" as temperature unit recently. Also fix that.
@@ -37,12 +37,12 @@ class Unit implements JsonSerializable
         }
     }
 
-    public function getValue()
+    public function getValue(): ?float
     {
         return $this->value;
     }
 
-    public function getFormatted($precision = null)
+    public function getFormatted(?int $precision = null): string
     {
         if(!$this->isValid()) {
             return '';

@@ -10,7 +10,7 @@ use Weather\Service\WeatherService;
 
 class WeatherHourly extends AbstractHelper
 {
-    protected $weatherService;
+    protected WeatherService $weatherService;
 
     public function __construct(WeatherService $weatherService)
     {
